@@ -1,3 +1,4 @@
+import React from "npm:react"
 const Organizations = () => {
   return (
     <div>
