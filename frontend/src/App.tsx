@@ -1,3 +1,18 @@
+// Code came from waterup
+import Homepage from "./pages/Homepage";
+const App = () => {
+  return (
+    <div>
+      <Homepage />
+    </div>
+  );
+};
+
+export default App;
+
+/* Only highlited off just in case this is what we need
+
+
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
@@ -33,3 +48,4 @@ function App() {
 }
 
 export default App;
+ */
