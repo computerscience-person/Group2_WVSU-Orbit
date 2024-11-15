@@ -1,5 +1,6 @@
 import React from "npm:react";
 import Nav from "../components/Nav";
+import Footer from "../components/Footer";
 const ContactsUs = () => {
   return (
     <div className="bg-sunshine h-full flex flex-col min-h-screen">
@@ -17,7 +18,7 @@ const ContactsUs = () => {
       {/* to be fixed */}
       <div className="bg-white flex justify-center items-center">
         {/* CONTACT FORM */}
-        <div className="bg-sunshine w-fit py-6 px-8 h-auto justify-start rounded-3xl space-y-2 my-36">
+        <div className="bg-sunshine w-fit py-6 px-8 h-auto justify-start rounded-[50px] space-y-2 my-36">
           <div>
             <p className="font-leader">Name (Optional):</p>
             <input
@@ -69,6 +70,7 @@ const ContactsUs = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
