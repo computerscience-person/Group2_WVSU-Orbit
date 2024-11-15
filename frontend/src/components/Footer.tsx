@@ -1,5 +1,13 @@
 import { Link } from "react-router-dom";
 
+const navPages = [
+  { name: "Home", path: "/" },
+  { name: "About Us", path: "/about" },
+  { name: "Organizations", path: "/orgs" },
+  { name: "Events", path: "/events" },
+  { name: "Contact Us", path: "/contact" },
+];
+
 const Footer = () => {
   return (
     <div className="h-auto min-h-[256px] flex flex-col px-6 sm:px-12 py-6 sm:py-8 justify-center items-center">
@@ -18,50 +26,16 @@ const Footer = () => {
 
         <div className="flex flex-col sm:flex-row justify-center items-center">
           <div className="flex flex-col justify-start items-start mr-0 sm:mr-8 mb-4 sm:mb-0">
-            <button className="mb-2">
-              <Link
-                to="/"
-                className="font-content text-sm sm:text-base hover:underline"
-              >
-                Home
-              </Link>
-            </button>
-
-            <button className="mb-2">
-              <Link
-                to="/about"
-                className="font-content text-sm sm:text-base hover:underline"
-              >
-                About Us
-              </Link>
-            </button>
-
-            <button className="mb-2">
-              <Link
-                to="/orgs"
-                className="font-content text-sm sm:text-base hover:underline"
-              >
-                Organizations
-              </Link>
-            </button>
-
-            <button className="mb-2">
-              <Link
-                to="/events"
-                className="font-content text-sm sm:text-base hover:underline"
-              >
-                Events
-              </Link>
-            </button>
-
-            <button className="mb-2">
-              <Link
-                to="/contact"
-                className="font-content text-sm sm:text-base hover:underline"
-              >
-                Contact Us
-              </Link>
-            </button>
+            {navPages.map((page) => (
+              <button className="mb-2">
+                <Link
+                  to={page.path}
+                  className="font-content text-sm sm:text-base hover:underline"
+                >
+                  {page.name}
+                </Link>
+              </button>
+            ))}
           </div>
 
           <div className="flex flex-col sm:ml-8">
