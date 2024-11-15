@@ -1,42 +1,43 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Nav = () => {
+  const location = useLocation();
+
+  // Define an array of paths to check against
+  const navPages = [
+    { name: "Home", path: "/" },
+    { name: "About Us", path: "/about" },
+    { name: "Organizations", path: "/orgs" },
+    { name: "Events", path: "/events" },
+    { name: "Contact Us", path: "/contact" },
+  ];
+
+  // Helper function to check if current path matches
+  const isActive = (path: string) => location.pathname === path;
+
   return (
-    /* Transparent Navbar */
     <div>
-      {/* Navbar height and width */}
       <nav className="w-full h-12 px-12">
-        {/* Div for Logo and Page labels */}
         <div className="h-full w-full flex justify-between items-center">
-          {/* Placeholder for Logo */}
           <h1 className="font-content font-bold text-lg">LOGO</h1>
-          {/* Page Labels */}
           <div className="justify-center flex space-x-4 items-center">
-            <button>
-              <Link className="font-content" to="/">
-                Home
-              </Link>
-            </button>
-            <button>
-              <Link className="font-content" to="/about">
-                About Us
-              </Link>
-            </button>
-            <button>
-              <Link className="font-content" to="/orgs">
-                Organizations
-              </Link>
-            </button>
-            <button>
-              <Link className="font-content" to="/events">
-                Events
-              </Link>
-            </button>
-            <button>
-              <Link className="font-content" to="/contact">
-                Contact Us
-              </Link>
-            </button>
+            {navPages.map((page) => (
+              <button
+                key={page.path}
+                className={`inline-flex items-center justify-center h-8 px-4 rounded-xl ${
+                  isActive(page.path) ? "bg-black" : ""
+                }`}
+              >
+                <Link
+                  className={`font-content ${
+                    isActive(page.path) ? "text-white" : ""
+                  }`}
+                  to={page.path}
+                >
+                  {page.name}
+                </Link>
+              </button>
+            ))}
           </div>
         </div>
       </nav>
