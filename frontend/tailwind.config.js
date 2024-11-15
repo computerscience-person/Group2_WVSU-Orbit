@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'leader': ['"Dela Gothic One"', 'ui-serif'],
+        'content': ['"Albert Sans"', 'ui-sans-serif'],
+      }
+    },
   },
   plugins: [],
 };
