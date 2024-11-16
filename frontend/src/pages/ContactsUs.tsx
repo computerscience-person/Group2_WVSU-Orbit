@@ -19,7 +19,7 @@ const ContactsUs = () => {
       </div>
 
       {/* Contact Form Section */}
-      <div className="bg-white flex justify-center items-center">
+      <div className="bg-white flex justify-center w-full top-0 rounded-t-[20%] sm:rounded-t-[30%] lg:rounded-t-[400px]">
         <div className="bg-sunshine w-full sm:w-auto py-6 px-6 sm:px-8 h-auto justify-start rounded-[50px] space-y-4 sm:space-y-6 my-16 sm:my-36">
           <div>
             <p className="font-leader text-sm sm:text-base">Name (Optional):</p>
