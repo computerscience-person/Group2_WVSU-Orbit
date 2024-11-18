@@ -10,7 +10,7 @@ const Events_EventDetails: React.FC<EventDetailsProps> = ({
   eventPlace,
 }) => {
   return (
-    <div className="flex flex-row space-x-5 items-center mb-5">
+    <div className=" flex flex-row space-x-5 items-center mb-5">
       <p className="font-content">ORG LOGO</p>
 
       {/* ORG EVENT DETAILS */}

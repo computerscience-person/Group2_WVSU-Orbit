@@ -1,16 +1,97 @@
+import React, { useState, useEffect } from "react";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import CalendarComponent from "../components/CalendarComponent";
 import Events_EventDetails from "../components/events/Events_EventDetails";
 import Events_Carousel from "../components/events/Events_Carousel"; // Adjust the path if necessary
 
 const Events = () => {
-  // Get Date
-  const today = new Date();
-  // Get the day of the week (e.g., "Monday")
-  const dayOfWeek = today.toLocaleString("en-US", { weekday: "long" });
-  // Get the day number (e.g., 16 for the 16th of the month)
-  const dayNumber = today.getDate();
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [daysInMonth, setDaysInMonth] = useState(0);
+  const [firstDayOfMonth, setFirstDayOfMonth] = useState(0);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  useEffect(() => {
+    const firstDay = new Date(currentYear, currentMonth, 1);
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    setFirstDayOfMonth(firstDay.getDay());
+    setDaysInMonth(daysInMonth);
+  }, [currentMonth, currentYear]);
+
+  const handlePreviousMonth = () => {
+    if (currentMonth === 0) {
+      setCurrentMonth(11);
+      setCurrentYear(currentYear - 1);
+    } else {
+      setCurrentMonth(currentMonth - 1);
+    }
+  };
+
+  const handleNextMonth = () => {
+    if (currentMonth === 11) {
+      setCurrentMonth(0);
+      setCurrentYear(currentYear + 1);
+    } else {
+      setCurrentMonth(currentMonth + 1);
+    }
+  };
+
+  const renderDays = () => {
+    const days = [];
+    const today = new Date(); // Get today's date
+    const isCurrentMonth =
+      today.getMonth() === currentMonth && today.getFullYear() === currentYear;
+
+    for (let i = 0; i < firstDayOfMonth; i++) {
+      days.push(<div key={`empty-${i}`} className="text-center py-2"></div>);
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const isToday = isCurrentMonth && day === today.getDate(); // Check if the day is today
+      const isSelected =
+        selectedDate.getDate() === day &&
+        selectedDate.getMonth() === currentMonth &&
+        selectedDate.getFullYear() === currentYear;
+
+      days.push(
+        <div
+          key={day}
+          className={`text-center cursor-pointer text-xs sm:text-sm md:text-base ${
+            isToday ? "bg-sunshine rounded-full" : ""
+          } ${isSelected ? "bg-tangerine font-bold rounded-full" : ""}`}
+          onClick={() =>
+            setSelectedDate(new Date(currentYear, currentMonth, day))
+          }
+        >
+          {day}
+        </div>
+      );
+    }
+
+    return days;
+  };
+
+  // Get values from selectedDate
+  const dayOfWeek = selectedDate.toLocaleString("en-US", { weekday: "long" });
+  const dayNumber = selectedDate.getDate();
 
   // Sample data for event details
   const eventDetails = [
@@ -69,8 +150,40 @@ const Events = () => {
         </div>
 
         <div className="w-full flex flex-row justify-between px-40 py-10">
-          <div>
-            <CalendarComponent />
+          {/* CALENDAR COMPONENT */}
+          <div className="font-leader ">
+            {/* Previous - Current Month - Next */}
+            <div className="flex items-center justify-between font-bold text-xs sm:text-sm md:text-base">
+              {/* Left arrow */}
+              <button
+                onClick={handlePreviousMonth}
+                className="font-bold text-xs sm:text-sm md:text-base"
+              >
+                ←
+              </button>
+              <h2
+                id="currentMonth"
+                className="font-bold text-xl sm:text-3xl md:text-5xl px-6"
+              >
+                {monthNames[currentMonth]}
+              </h2>
+              {/* Right arrow */}
+              <button
+                onClick={handleNextMonth}
+                className="font-bold text-xs sm:text-sm md:text-base"
+              >
+                →
+              </button>
+            </div>
+
+            <div className="grid grid-cols-7 gap-1 p-4" id="calendar">
+              {daysOfWeek.map((day) => (
+                <div key={day} className="text-center font-semibold">
+                  {day}
+                </div>
+              ))}
+              {renderDays()}
+            </div>
           </div>
 
           <div>
@@ -89,6 +202,7 @@ const Events = () => {
           </div>
         </div>
       </div>
+
       {/* ORBIT RECAP */}
       <div className="bg-white py-12 flex flex-col">
         <div className="flex flex-col items-center px-56">

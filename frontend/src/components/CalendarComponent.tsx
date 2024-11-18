@@ -1,6 +1,10 @@
 /* 
+WARNING: CURRENTLY NOT IN USE, BUT KEEPING IT JUST IN
+CASE IT MAY BE HELPFUL FOR FUTURE USE
+
 Source code:
 https://www.creative-tim.com/twcomponents/component/calendar-1
+
 */
 
 import React, { useState, useEffect } from "react";
@@ -87,7 +91,7 @@ const CalendarComponent = () => {
   };
 
   return (
-    <div className="font-leader">
+    <div className="font-leader bg-red-300">
       {/* Previous - Current Month - Next */}
       <div className="flex items-center justify-between font-bold text-xs sm:text-sm md:text-base">
         {/* Left arrow */}
