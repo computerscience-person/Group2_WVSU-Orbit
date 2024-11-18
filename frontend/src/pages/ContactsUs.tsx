@@ -20,21 +20,12 @@ const ContactsUs = () => {
 
       {/* Contact Form Section */}
       <div className="bg-white flex justify-center w-full top-0 rounded-t-[20%] sm:rounded-t-[30%] lg:rounded-t-[400px]">
-        <div className="bg-sunshine w-full sm:w-auto py-6 px-6 sm:px-8 h-auto justify-start rounded-[50px] space-y-4 sm:space-y-6 my-16 sm:my-36">
+        <div className="bg-sunshine w-full sm:w-auto py-6 px-6 sm:px-8 h-auto justify-start rounded-[50px] space-y-4 sm:space-y-6 my-16 sm:my-36  sm:shadow-md md:shadow-lg">
           <div>
             <p className="font-leader text-sm sm:text-base">Name (Optional):</p>
             <input
               type="text"
               placeholder="e.g. Jeno Lee"
-              className="mt-2 p-2 border rounded-lg w-full sm:w-80"
-            />
-          </div>
-
-          <div>
-            <p className="font-leader text-sm sm:text-base">Email:</p>
-            <input
-              type="text"
-              placeholder="e.g. john.doe@gmail.com"
               className="mt-2 p-2 border rounded-lg w-full sm:w-80"
             />
           </div>
