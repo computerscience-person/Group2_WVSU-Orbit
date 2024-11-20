@@ -1,8 +1,8 @@
+import React from 'react'
 import { Link, useLocation } from "react-router-dom";
 
 const Nav = () => {
   const location = useLocation();
-
   // Define an array of paths to check against
   const navPages = [
     { name: "Home", path: "/" },
@@ -16,6 +16,7 @@ const Nav = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
+  // <nav className="fixed w-screen top-0 border-red-500 border-2">
     <div>
       <nav className="w-full h-12 px-12">
         <div className="h-full w-full flex justify-between items-center">
