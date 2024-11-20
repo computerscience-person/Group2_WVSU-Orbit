@@ -17,7 +17,7 @@ const DevsDisplay: React.FC<DevsDisplayValues> = ({
     <div className="flex flex-col items-center">
       {/* Background image */}
       <div
-        className="w-30 lg:w-60 lg:h-80 mx-auto mt-4 flex justify-center items-center"
+        className="w-[35vh] h-[45vh] mx-auto mt-[-6vh] flex justify-center items-center rounded-lg"
         style={{ backgroundColor: bgColor }}
       >
         <img src={imageSrc} alt="DevImage" />

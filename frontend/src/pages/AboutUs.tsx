@@ -70,10 +70,10 @@ const AboutUs = () => {
         {/* OVAL */}
         <div className="absolute left-1/2 -translate-x-1/2 w-[150%] h-[100vh] bg-[#FF6C1F] rounded-[80%_80%] top-[-50%]"></div>
         {/* ABOUT WVSU TEXT */}
-        <div className="font-leader z-10 text-center absolute left-1/2 -translate-x-1/2 top-[15%] text-[80px] whitespace-nowrap">
+        <div className="font-leader z-2 text-center flex flex-wrap justify-center absolute items-center text-[80px] w-full mt-[20vh] pl-[30vh] pr-[30vh]">
           ABOUT WVSU ORBIT
         </div>
-        <div className="font-content z-10 text-center absolute left-1/2 -translate-x-1/2 top-[70%] text-[28px]">
+        <div className="font-content text-center flex flex-wrap justify-center items-center pt-[70vh] text-[28px] pl-[40vh] pr-[40vh]">
           WVSU Orbit kckvkvnsknvskvnksvs t kckvkvnsknvskvnksvst
           kckvkvnsknvskvnksvst kckvkvnsknvskvnksvst kckvkvnsknvLorem ipsum dolor
           sit amet, consectetur adipiscing elit, sed do eiusmod tempor
@@ -90,37 +90,37 @@ const AboutUs = () => {
           <div className="absolute left-1/2 -translate-x-1/2 w-[150%] h-[100vh] bg-[#FF6C1F] rounded-[80%_80%] top-[20%]"></div>
           <div className="absolute left-1/2 -translate-x-1/2 w-[250%] h-[500%] bg-[#FF6C1F] top-[70%]"></div>
           {/* MISSION */}
-          <div className="font-leader z-10 text-center absolute right-2/3 translate-x-14 top-[35%] text-[50px] whitespace-nowrap">
+          <div className="font-leader z-2 text-center flex flex-wrap justify-center absolute items-center text-[50px] w-full mt-[63vh] pl-[20vh] pr-[120vh]">
             Mission
           </div>
           {/* MISSION STATEMENT */}
-          <div className="font-content z-10 text-center absolute right-2/3 translate-x-48 top-[45%] text-[20px]">
+          <p className="font-content z-2 text-center flex flex-wrap justify-center absolute items-center pt-[0vh] text-[20px] w-full mt-[75vh] pl-[20vh] pr-[120vh]">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna. Lorem ipsum
             dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
             incididunt ut labore et dolore magna.
-          </div>
+          </p>
           {/* VISION */}
-          <div className="font-leader z-10 text-center absolute left-2/3 translate-x--14 top-[65%] text-[50px] whitespace-nowrap">
+          <div className="font-leader z-2 text-center flex flex-wrap justify-center absolute items-center text-[50px] w-full mt-[98vh] pl-[120vh] pr-[20vh]">
             Vision
           </div>
           {/* VISION STATEMENT */}
-          <div className="font-content z-10 text-center absolute left-2/3 top-[75%] text-[20px] transform -translate-x-1/3">
+          <p className="font-content z-2 text-center flex flex-wrap justify-center absolute items-center pt-[35vh] text-[20px] w-full mt-[75vh] pl-[120vh] pr-[20vh]">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna. Lorem ipsum
             dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
             incididunt ut labore et dolore magna.
-          </div>
+          </p>
         </div>
       </div>
       {/* CREATING A PARENT DIV TO ACCOMMODATE THE MULTIPLE LAYERS */}
       <div className="overflow-hidden">
         {/* LAYER 3 */}
-        <div className="h-screen bg-white relative">
-          <p className="font-leader z-10 text-center absolute left-1/2 -translate-x-1/2 top-[10%] text-[80px] whitespace-nowrap">
+        <div className="h-[120vh] bg-white relative">
+          <p className="font-leader z-2 text-center flex flex-wrap justify-center items-center pt-[10vh] text-[80px] whitespace-nowrap">
             Core Values
           </p>
-          <div className="flex flex-row justify-center gap-20 absolute top-[30%] left-1/3 -translate-x-1/4">
+          <div className="flex flex-row flex-wrap justify-center items-center pt-[10vh]">
             {coreValuesComponents.map((components, index) => (
               <CoreValues
                 key={index}
@@ -135,11 +135,12 @@ const AboutUs = () => {
 
       {/* CREATING A PARENT DIV TO ACCOMMODATE THE MULTIPLE LAYERS */}
       <div className="overflow-hidden">
-        <div className="h-[200vh] bg-[#FF6C1F] relative">
-          <p className="font-leader z-10 text-center absolute left-1/2 -translate-x-1/2 top-[10%] text-[80px] whitespace-nowrap">
+        {/* LAYER 4 */}
+        <div className="h-[210vh] bg-[#FF6C1F] relative">
+          <p className="font-leader z-2 text-center flex flex-wrap justify-center items-center pt-[10vh] text-[80px] whitespace-nowrap">
             Team Behind WVSU Orbit
           </p>
-          <div className="flex flex-wrap justify-center gap-32 absolute top-[30%] left-1/3 -translate-x-1/4">
+          <div className="flex flex-wrap justify-center items-center gap-[30vh] min-h-screen pt-[30vh]">
             {devDisplayComponents.map((components, index) => (
               <DevsDisplay
                 key={index}
