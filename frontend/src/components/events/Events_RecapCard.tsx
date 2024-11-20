@@ -13,10 +13,9 @@ const Events_RecapCard: React.FC<RecapCardProps> = ({
   url,
   bgColor,
 }) => {
-  const formattedUrl =
-    url.startsWith("http://") || url.startsWith("https://")
-      ? url
-      : `https://${url}`;
+  const formattedUrl = url.startsWith("http://") || url.startsWith("https://")
+    ? url
+    : `https://${url}`;
 
   return (
     <div

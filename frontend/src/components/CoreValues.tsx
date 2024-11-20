@@ -17,7 +17,8 @@ const CoreValues: React.FC<AboutCoreValues> = ({
       <div
         className="w-56 h-64 mx-auto mt-8 flex-shrink-0 bg-cover bg-center rounded-lg"
         style={{ backgroundImage: `url(${imageSrc})` }}
-      ></div>
+      >
+      </div>
       {/* Core title */}
       <p className="font-content text-[28px] mt-4 text-center">{coreTitle}</p>
       {/* Core description */}

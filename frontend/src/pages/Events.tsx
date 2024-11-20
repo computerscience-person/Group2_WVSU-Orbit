@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Events_EventDetails from "../components/events/Events_EventDetails";
@@ -57,8 +57,8 @@ const Events = () => {
   const renderDays = () => {
     const days = [];
     const today = new Date(); // Get today's date
-    const isCurrentMonth =
-      today.getMonth() === currentMonth && today.getFullYear() === currentYear;
+    const isCurrentMonth = today.getMonth() === currentMonth &&
+      today.getFullYear() === currentYear;
 
     for (let i = 0; i < firstDayOfMonth; i++) {
       days.push(<div key={`empty-${i}`} className="text-center py-2"></div>);
@@ -66,8 +66,7 @@ const Events = () => {
 
     for (let day = 1; day <= daysInMonth; day++) {
       const isToday = isCurrentMonth && day === today.getDate(); // Check if the day is today
-      const isSelected =
-        selectedDate.getDate() === day &&
+      const isSelected = selectedDate.getDate() === day &&
         selectedDate.getMonth() === currentMonth &&
         selectedDate.getFullYear() === currentYear;
 
@@ -78,11 +77,10 @@ const Events = () => {
             isToday ? "bg-sunshine rounded-full" : ""
           } ${isSelected ? "bg-tangerine font-bold rounded-full" : ""}`}
           onClick={() =>
-            setSelectedDate(new Date(currentYear, currentMonth, day))
-          }
+            setSelectedDate(new Date(currentYear, currentMonth, day))}
         >
           {day}
-        </div>
+        </div>,
       );
     }
 

@@ -1,4 +1,4 @@
-/* 
+/*
 WARNING: CURRENTLY NOT IN USE, BUT KEEPING IT JUST IN
 CASE IT MAY BE HELPFUL FOR FUTURE USE
 
@@ -7,7 +7,7 @@ https://www.creative-tim.com/twcomponents/component/calendar-1
 
 */
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const CalendarComponent = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
@@ -61,8 +61,8 @@ const CalendarComponent = () => {
   const renderDays = () => {
     const days = [];
     const today = new Date(); // Get today's date
-    const isCurrentMonth =
-      today.getMonth() === currentMonth && today.getFullYear() === currentYear;
+    const isCurrentMonth = today.getMonth() === currentMonth &&
+      today.getFullYear() === currentYear;
 
     for (let i = 0; i < firstDayOfMonth; i++) {
       days.push(<div key={`empty-${i}`} className="text-center py-2"></div>);
@@ -78,12 +78,13 @@ const CalendarComponent = () => {
           }`}
           onClick={() =>
             alert(
-              `Selected Date: ${day} ${monthNames[currentMonth]} ${currentYear}`
-            )
-          }
+              `Selected Date: ${day} ${
+                monthNames[currentMonth]
+              } ${currentYear}`,
+            )}
         >
           {day}
-        </div>
+        </div>,
       );
     }
 

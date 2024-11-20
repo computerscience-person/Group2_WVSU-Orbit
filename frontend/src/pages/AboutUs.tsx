@@ -68,7 +68,8 @@ const AboutUs = () => {
       {/* LAYER 1 */}
       <div className="h-screen bg-white relative">
         {/* OVAL */}
-        <div className="absolute left-1/2 -translate-x-1/2 w-[150%] h-[100vh] bg-[#FF6C1F] rounded-[80%_80%] top-[-50%]"></div>
+        <div className="absolute left-1/2 -translate-x-1/2 w-[150%] h-[100vh] bg-[#FF6C1F] rounded-[80%_80%] top-[-50%]">
+        </div>
         {/* ABOUT WVSU TEXT */}
         <div className="font-leader z-2 text-center flex flex-wrap justify-center absolute items-center text-[80px] w-full mt-[20vh] pl-[30vh] pr-[30vh]">
           ABOUT WVSU ORBIT
@@ -87,8 +88,10 @@ const AboutUs = () => {
         {/* LAYER 2 */}
         <div className="h-[150vh] bg-white relative">
           {/* OVAL */}
-          <div className="absolute left-1/2 -translate-x-1/2 w-[150%] h-[100vh] bg-[#FF6C1F] rounded-[80%_80%] top-[20%]"></div>
-          <div className="absolute left-1/2 -translate-x-1/2 w-[250%] h-[500%] bg-[#FF6C1F] top-[70%]"></div>
+          <div className="absolute left-1/2 -translate-x-1/2 w-[150%] h-[100vh] bg-[#FF6C1F] rounded-[80%_80%] top-[20%]">
+          </div>
+          <div className="absolute left-1/2 -translate-x-1/2 w-[250%] h-[500%] bg-[#FF6C1F] top-[70%]">
+          </div>
           {/* MISSION */}
           <div className="font-leader z-2 text-center flex flex-wrap justify-center absolute items-center text-[50px] w-full mt-[63vh] pl-[20vh] pr-[120vh]">
             Mission
