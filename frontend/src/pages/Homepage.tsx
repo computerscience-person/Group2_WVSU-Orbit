@@ -3,6 +3,8 @@ import Nav from "../components/Nav.tsx"
 import Footer from "../components/Footer.tsx";
 import { Link } from "react-router-dom"
 import Events_EventDetails from "../components/events/Events_EventDetails.tsx";
+import bgImage from "../assets/students-jumping-college.jpg"
+
 const Homepage = () => {
   const [width, setWidth] = useState(window.innerWidth)
   useEffect(() => {
@@ -27,11 +29,11 @@ const Homepage = () => {
   ]
   return (
     <>
-      <Nav />
       {/* greeter screen */}
-      <div className="h-[75vh] bg-sorbet flex flex-wrap flex-col content-center justify-center">
+      <div className="h-[150vh] bg-sorbet bg-[url(/src/assets/students-jumping-college.jpg)] bg-blend-soft-light bg-cover bg-no-repeat flex flex-wrap flex-col justify-center items-center">
+        <div className="w-full bg-transparent"><Nav /></div>
         <div 
-          className="max-h-[60dvh] w-[60vw] flex flex-col gap-4 justify-center text-center"
+          className="w-[60vw] flex flex-col grow gap-4 justify-center text-center"
         >
           <h1 className="text-6xl font-leader uppercase">
             Welcome To Your One-Stop Org Hub
@@ -41,18 +43,18 @@ const Homepage = () => {
             organizations <strong><em>all in one orbit</em></strong>.
           </p>
         </div>
-      </div>
-      {/* cute divider thing */}
-      <div className="bg-sorbet">
+      <div className="w-full bg-gradient-to-b from-transparent to-sorbet">
         <svg width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
           <svg className="fill-pool">
             <rect x="-10" y="75" width="115%" height="50" transform={`rotate(2, ${rotCenter + 10}, 100)`} />
           </svg>
-          <svg className="fill-tangerine">
+          <svg className="fill-sunshine">
             <rect x="-10" y="75" width="115%" height="50" transform={`rotate(-2, ${rotCenter + 10}, 100)`} />
           </svg>
         </svg>
       </div>
+      </div>
+      {/* cute divider thing */}
       {/* pitch them up*/}
       <div className="bg-sorbet flex flex-wrap flex-col content-center justify-center">
         <div className="w-[70vw] flex flex-col justify-center text-center pb-12">
