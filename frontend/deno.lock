@@ -15,6 +15,7 @@
     "npm:react-dom@^18.3.1": "18.3.1_react@18.3.1",
     "npm:react-router-dom@^6.28.0": "6.28.0_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:react@^18.3.1": "18.3.1",
+    "npm:swiper@^11.1.15": "11.1.15",
     "npm:tailwindcss@^3.4.14": "3.4.14_postcss@8.4.49",
     "npm:typescript-eslint@^8.11.0": "8.14.0_@typescript-eslint+parser@8.14.0__eslint@9.14.0__typescript@5.6.3_eslint@9.14.0_typescript@5.6.3",
     "npm:typescript@~5.6.2": "5.6.3",
@@ -1484,6 +1485,9 @@
     "supports-preserve-symlinks-flag@1.0.0": {
       "integrity": "sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w=="
     },
+    "swiper@11.1.15": {
+      "integrity": "sha512-IzWeU34WwC7gbhjKsjkImTuCRf+lRbO6cnxMGs88iVNKDwV+xQpBCJxZ4bNH6gSrIbbyVJ1kuGzo3JTtz//CBw=="
+    },
     "tailwindcss@3.4.14_postcss@8.4.49": {
       "integrity": "sha512-IcSvOcTRcUtQQ7ILQL5quRDg7Xs93PdJEk1ZLbhhvJc7uj/OAhYOnruEiwnGgBvUtaUAJ8/mhSw1o8L2jCiENA==",
       "dependencies": [
@@ -1642,6 +1646,7 @@
         "npm:react-dom@^18.3.1",
         "npm:react-router-dom@^6.28.0",
         "npm:react@^18.3.1",
+        "npm:swiper@^11.1.15",
         "npm:tailwindcss@^3.4.14",
         "npm:typescript-eslint@^8.11.0",
         "npm:typescript@~5.6.2",
