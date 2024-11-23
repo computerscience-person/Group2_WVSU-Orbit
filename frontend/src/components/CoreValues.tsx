@@ -15,14 +15,16 @@ const CoreValues: React.FC<AboutCoreValues> = ({
     <div className="flex flex-col items-center">
       {/* Background image */}
       <div
-        className="w-56 h-64 mx-auto mt-8 flex-shrink-0 bg-cover bg-center rounded-lg"
-        style={{ backgroundImage: `url(${imageSrc})` }}
+        className=" sm:w-40 md:w-60 lg:w-60 sm:h-40 md:h-60 lg:h-60 md:mt-16 lg:mt-16 flex justify-center items-center rounded-lg"
       >
+        <img src={imageSrc} alt="DevImage" />
       </div>
       {/* Core title */}
-      <p className="font-content text-[28px] mt-4 text-center">{coreTitle}</p>
+      <p className="font-content sm:text-2xl md:text-3xl lg:text-3xl sm:mt-8 md:mt-10 lg:mt-10 text-center">
+        {coreTitle}
+      </p>
       {/* Core description */}
-      <p className="font-content text-[20px] mt-2 text-center text-gray-600">
+      <p className="font-content sm:text-1xl md:text-2xl lg:text-2xl mt-4 text-center">
         {coreDesc}
       </p>
     </div>
