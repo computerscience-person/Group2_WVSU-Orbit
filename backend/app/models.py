@@ -5,6 +5,9 @@ class EventItem(BaseModel):
     org_id: int
     eventTitle: str
     venue: str
+    month: int
+    day: int
+    year: int
     startTime: Optional[str] = None
     endTime: Optional[str] = None
     notes: Optional[str] = None

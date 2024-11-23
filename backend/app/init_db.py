@@ -9,7 +9,10 @@ cursor.execute("""
     CREATE TABLE IF NOT EXISTS organizations (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     orgName TEXT NOT NULL,
-    isCollegeBased BOOLEAN NOT NULL
+    isCollegeBased BOOLEAN NOT NULL,
+    month INTEGER NOT NULL,
+    day INTEGER NOT NULL,
+    year INTEGER NOT NULL,
 )
 """)
 

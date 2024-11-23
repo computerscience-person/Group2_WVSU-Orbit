@@ -28,10 +28,12 @@ def read_items():
     # SQL query to fetch organizations and their associated events
     cursor.execute("""
         SELECT o.id AS org_id, o.orgName, o.isCollegeBased, 
-               e.id AS event_id, e.eventTitle, e.venue, e.startTime, e.endTime, e.notes
+            e.id AS event_id, e.eventTitle, e.venue, e.startTime, e.endTime, e.notes,
+            e.month, e.day, e.year
         FROM organizations o
         LEFT JOIN events e ON o.id = e.org_id
     """)
+
 
     events = cursor.fetchall()
     conn.close()
@@ -42,6 +44,7 @@ def read_items():
         org_id = row["org_id"]
         if org_id not in orgs:
             orgs[org_id] = {
+                "org_id": org_id,
                 "orgName": row["orgName"],
                 "isCollegeBased": row["isCollegeBased"],
                 "events": []
@@ -51,6 +54,9 @@ def read_items():
                 "event_id": row["event_id"],
                 "eventTitle": row["eventTitle"],
                 "venue": row["venue"],
+                "month": row["month"],
+                "day": row["day"],
+                "year": row["year"],
                 "startTime": row["startTime"],
                 "endTime": row["endTime"],
                 "notes": row["notes"]
@@ -66,6 +72,7 @@ def create_organization(org_item: OrganizationItem):
     cursor = conn.cursor()
     
     try:
+        # Insert organization data into DB table
         cursor.execute(""" 
                     INSERT INTO organizations (orgName, isCollegeBased) VALUES (?, ?)
                     """, (org_item.orgName, org_item.isCollegeBased))
@@ -92,12 +99,15 @@ def create_event(event_item: EventItem):
         
         # Insert the event into the events table
         cursor.execute(""" 
-            INSERT INTO events (org_id, eventTitle, venue, startTime, endTime, notes) 
-            VALUES (?,?,?,?,?,?)
+            INSERT INTO events (org_id, eventTitle, venue, month, day, year, startTime, endTime, notes) 
+            VALUES (?,?,?,?,?,?,?,?,?)
         """, (
             event_item.org_id, 
             event_item.eventTitle, 
-            event_item.venue, 
+            event_item.venue,
+            event_item.month,
+            event_item.day,
+            event_item.year, 
             event_item.startTime, 
             event_item.endTime, 
             event_item.notes
