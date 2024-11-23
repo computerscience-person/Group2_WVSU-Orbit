@@ -7,7 +7,7 @@ interface DevsDisplayValues {
   devRole: string;
 }
 
-const DevsDisplay: React.FC<DevsDisplayValues> = ({
+const About_DevsDisplay: React.FC<DevsDisplayValues> = ({
   imageSrc,
   devName,
   bgColor,
@@ -34,4 +34,4 @@ const DevsDisplay: React.FC<DevsDisplayValues> = ({
   );
 };
 
-export default DevsDisplay;
+export default About_DevsDisplay;

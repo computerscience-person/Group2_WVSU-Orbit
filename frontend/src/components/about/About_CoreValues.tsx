@@ -6,7 +6,7 @@ interface AboutCoreValues {
   coreDesc: string;
 }
 
-const CoreValues: React.FC<AboutCoreValues> = ({
+const About_CoreValues: React.FC<AboutCoreValues> = ({
   imageSrc,
   coreTitle,
   coreDesc,
@@ -14,9 +14,7 @@ const CoreValues: React.FC<AboutCoreValues> = ({
   return (
     <div className="flex flex-col items-center">
       {/* Background image */}
-      <div
-        className=" sm:w-40 md:w-60 lg:w-60 sm:h-40 md:h-60 lg:h-60 md:mt-16 lg:mt-16 flex justify-center items-center rounded-lg"
-      >
+      <div className=" sm:w-40 md:w-60 lg:w-60 sm:h-40 md:h-60 lg:h-60 md:mt-16 lg:mt-16 flex justify-center items-center rounded-lg">
         <img src={imageSrc} alt="DevImage" />
       </div>
       {/* Core title */}
@@ -31,4 +29,4 @@ const CoreValues: React.FC<AboutCoreValues> = ({
   );
 };
 
-export default CoreValues;
+export default About_CoreValues;

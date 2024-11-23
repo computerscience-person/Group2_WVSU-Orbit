@@ -1,6 +1,6 @@
 import React from "npm:react";
-import CoreValues from "../components/CoreValues";
-import DevsDisplay from "../components/DevsDisplay";
+import About_CoreValues from "../components/about/About_CoreValues.tsx";
+import About_DevsDisplay from "../components/about/About_DevsDisplay.tsx";
 
 import Nav from "../components/Nav.tsx";
 import Footer from "../components/Footer.tsx";
@@ -128,7 +128,7 @@ const AboutUs = () => {
         </h1>
         <div className="flex flex-row flex-wrap justify-center sm:mt-16 md:mt-10 lg:mt-10 sm:gap-32 md:gap-14 lg:gap-14 sm:mb-16">
           {coreValuesComponents.map((components, index) => (
-            <CoreValues
+            <About_CoreValues
               key={index}
               imageSrc={components.imageSrc}
               coreTitle={components.coreTitle}
@@ -147,7 +147,7 @@ const AboutUs = () => {
           </p>
           <div className="flex flex-wrap justify-center items-center sm:gap-32 md:gap-32 lg:gap-32 sm:pt-20 md:pt-32 lg:pt-32 sm:mb-10 md:mb-20 lg:mb-20 md:mx-24">
             {devDisplayComponents.map((components, index) => (
-              <DevsDisplay
+              <About_DevsDisplay
                 key={index}
                 imageSrc={components.imageSrc}
                 devName={components.devName}
