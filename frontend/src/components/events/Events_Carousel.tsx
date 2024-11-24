@@ -1,38 +1,61 @@
-import React, { useRef, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Events_RecapCard from "./Events_RecapCard";
+import { fetchRecentEvents, Event } from "../../api/api";
 
+// Updated Card interface to make orgName a required string
 interface Card {
-  orgName: string;
+  orgName: string; // Make orgName a required string
   eventName: string;
   url: string;
   bgColor: string;
 }
 
-interface CarouselProps {
-  cards: Card[];
-}
+const Events_Carousel: React.FC = () => {
+  const [events, setEvents] = useState<Event[]>([]);
+  const [cards, setCards] = useState<Card[]>([]);
 
-const Events_Carousel: React.FC<CarouselProps> = ({ cards }) => {
+  // Fetch recent events on component mount
+  useEffect(() => {
+    const loadEvents = async () => {
+      try {
+        const data = await fetchRecentEvents();
+        setEvents(data); // Set the events state
+
+        // Map events to Card format
+        const mappedCards: Card[] = data.map((event) => ({
+          // Ensure orgName is a required string
+          orgName: event.orgName ?? "Unknown Organization", // Fallback for null/undefined orgName
+          eventName: event.eventTitle,
+          url: "facebook.com",
+          bgColor: "bg-tangerine",
+        }));
+
+        setCards(mappedCards); // Set the cards state
+      } catch (error) {
+        console.error("Error loading events:", error);
+      }
+    };
+
+    loadEvents();
+  }, []); // Empty dependency array to run only once on mount
+
   const [currentIndex, setCurrentIndex] = useState(0);
-  const totalCards = cards.length;
   const cardsPerView = 3;
 
   const handleScroll = (direction: "left" | "right") => {
-    if (direction === "left") {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === 0 ? totalCards - cardsPerView : prevIndex - 1
-      );
-    } else {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === totalCards - cardsPerView ? 0 : prevIndex + 1
-      );
-    }
+    setCurrentIndex((prevIndex) => {
+      if (direction === "left") {
+        return prevIndex === 0 ? cards.length - cardsPerView : prevIndex - 1;
+      } else {
+        return prevIndex === cards.length - cardsPerView ? 0 : prevIndex + 1;
+      }
+    });
   };
 
-  // Get the visible cards based on the current index
+  // Get visible cards based on the current index
   const visibleCards = cards.slice(currentIndex, currentIndex + cardsPerView);
 
-  // Handle wrapping around if the slice exceeds the total cards
+  // Handle wrapping if slice exceeds the total cards
   if (visibleCards.length < cardsPerView) {
     visibleCards.push(...cards.slice(0, cardsPerView - visibleCards.length));
   }

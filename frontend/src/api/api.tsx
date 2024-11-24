@@ -11,6 +11,7 @@ export interface Event {
   startTime: string | null;
   endTime: string | null;
   notes: string | null;
+  orgName: string;
 }
 
 export interface Organization {
@@ -28,6 +29,16 @@ export const fetchOrganizationsAndEvents = async (): Promise<
     return response.data;
   } catch (error) {
     console.error("Error fetching organizations and events:", error);
+    return [];
+  }
+};
+
+export const fetchRecentEvents = async (): Promise<Event[]> => {
+  try {
+    const response = await axios.get("http://localhost:8000/recent-events/");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching recent events: ", error);
     return [];
   }
 };

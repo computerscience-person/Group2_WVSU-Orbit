@@ -2,10 +2,11 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware  # Import CORS middleware
 import sqlite3
-from app.models import EventItem, OrganizationItem
+from models import EventItem, OrganizationItem
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+from datetime import datetime
 
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 SECRET_KEY = os.getenv("SECRET_KEY")
@@ -36,7 +37,7 @@ async def root():
     return {"message": "Hello There!"}
 
 # Get all items - DISPLAY PURPOSES ONLY in DOCS
-@app.get("/get-events")
+@app.get("/read-items")
 def read_items():
     conn = connect_db()
     cursor = conn.cursor()
@@ -137,7 +138,7 @@ def create_event(event_item: EventItem):
     
     return {"message": "Event added successfully"}
 
-# Get the event and print out in `tsx` code.
+# Get the event and print out in `api.tsx` code
 @app.get("/get-events")
 def get_organizations_and_events():
     conn = connect_db()
@@ -178,4 +179,44 @@ def get_organizations_and_events():
             })
 
     return list(orgs.values())
+
+
+@app.get("/recent-events/")
+def get_recent_events():
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    try:
+        # Fetch the 6 most recent events with the organization name
+        cursor.execute("""
+            SELECT e.id AS event_id, e.eventTitle, e.venue, 
+                e.month, e.day, e.year, e.startTime, e.endTime, e.notes, 
+                o.orgName
+            FROM events e
+            JOIN organizations o ON e.org_id = o.id
+            ORDER BY e.year DESC, e.month DESC, e.day DESC
+            LIMIT 6
+        """)
+        events = cursor.fetchall()
+    finally:
+        conn.close()
+
+    # Organize the results into a list of dictionaries
+    recent_events = [
+        {
+            "event_id": row["event_id"],
+            "eventTitle": row["eventTitle"],
+            "venue": row["venue"],
+            "month": row["month"],
+            "day": row["day"],
+            "year": row["year"],
+            "startTime": row["startTime"],
+            "endTime": row["endTime"],
+            "notes": row["notes"],
+            "orgName": row["orgName"]  # Now this will work
+        }
+        for row in events
+    ]
+
+    return recent_events
 

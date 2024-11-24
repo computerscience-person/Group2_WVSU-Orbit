@@ -57,8 +57,8 @@ const Events = () => {
   const renderDays = () => {
     const days = [];
     const today = new Date(); // Get today's date
-    const isCurrentMonth = today.getMonth() === currentMonth &&
-      today.getFullYear() === currentYear;
+    const isCurrentMonth =
+      today.getMonth() === currentMonth && today.getFullYear() === currentYear;
 
     for (let i = 0; i < firstDayOfMonth; i++) {
       days.push(<div key={`empty-${i}`} className="text-center py-2"></div>);
@@ -66,7 +66,8 @@ const Events = () => {
 
     for (let day = 1; day <= daysInMonth; day++) {
       const isToday = isCurrentMonth && day === today.getDate(); // Check if the day is today
-      const isSelected = selectedDate.getDate() === day &&
+      const isSelected =
+        selectedDate.getDate() === day &&
         selectedDate.getMonth() === currentMonth &&
         selectedDate.getFullYear() === currentYear;
 
@@ -77,10 +78,11 @@ const Events = () => {
             isToday ? "bg-sunshine rounded-full" : ""
           } ${isSelected ? "bg-tangerine font-bold rounded-full" : ""}`}
           onClick={() =>
-            setSelectedDate(new Date(currentYear, currentMonth, day))}
+            setSelectedDate(new Date(currentYear, currentMonth, day))
+          }
         >
           {day}
-        </div>,
+        </div>
       );
     }
 
@@ -91,7 +93,6 @@ const Events = () => {
   const dayOfWeek = selectedDate.toLocaleString("en-US", { weekday: "long" });
   const dayNumber = selectedDate.getDate();
 
-  // Sample data for event details
   const eventDetails = [
     {
       eventName: "Tech Enthusiasts | Innovative Tech Talk 2024",
@@ -102,34 +103,6 @@ const Events = () => {
       eventName: "Youth Leaders | Leadership Summit 2024",
       eventPlace: "Auditorium, Main Building",
       eventTime: "10:00 AM to 3:00 PM",
-    },
-  ];
-
-  // Sample data for recap cards
-  const cards = [
-    {
-      orgName: "Tech Enthusiasts",
-      eventName: "Innovative Tech Talk 2024",
-      url: "https://techconference.com",
-      bgColor: "bg-pool",
-    },
-    {
-      orgName: "Creative Minds",
-      eventName: "Artistic Creations Expo",
-      url: "https://artgallery.com",
-      bgColor: "bg-palmleaf",
-    },
-    {
-      orgName: "Youth Leaders",
-      eventName: "Leadership Summit 2024",
-      url: "https://leadershipsummit.com",
-      bgColor: "bg-tangerine",
-    },
-    {
-      orgName: "Health Advocates",
-      eventName: "Wellness Workshop Series",
-      url: "https://wellnessworkshop.com",
-      bgColor: "bg-sorbet",
     },
   ];
 
@@ -214,7 +187,7 @@ const Events = () => {
           </p>
         </div>
         {/* Carousel */}
-        <Events_Carousel cards={cards} />
+        <Events_Carousel />
       </div>
       <Footer />
     </div>
