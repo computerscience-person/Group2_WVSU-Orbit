@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import Events_RecapCard from "./Events_RecapCard";
 import { fetchRecentEvents, Event } from "../../api/api";
 
-// Updated Card interface to make orgName a required string
 interface Card {
-  orgName: string; // Make orgName a required string
+  orgName: string;
   eventName: string;
   url: string;
   bgColor: string;
@@ -14,6 +13,14 @@ const Events_Carousel: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [cards, setCards] = useState<Card[]>([]);
 
+  const colors = [
+    "bg-sunshine",
+    "bg-sorbet",
+    "bg-tangerine",
+    "bg-palmleaf",
+    "bg-pool",
+  ];
+
   // Fetch recent events on component mount
   useEffect(() => {
     const loadEvents = async () => {
@@ -21,13 +28,12 @@ const Events_Carousel: React.FC = () => {
         const data = await fetchRecentEvents();
         setEvents(data); // Set the events state
 
-        // Map events to Card format
+        // Map events to Card format with random bgColor
         const mappedCards: Card[] = data.map((event) => ({
-          // Ensure orgName is a required string
           orgName: event.orgName ?? "Unknown Organization", // Fallback for null/undefined orgName
           eventName: event.eventTitle,
           url: "facebook.com",
-          bgColor: "bg-tangerine",
+          bgColor: colors[Math.floor(Math.random() * colors.length)], // Randomly assign a color
         }));
 
         setCards(mappedCards); // Set the cards state
