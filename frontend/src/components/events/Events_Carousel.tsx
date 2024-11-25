@@ -68,8 +68,8 @@ const Events_Carousel: React.FC = () => {
 
   return (
     <div className="py-12 px-28 relative">
-      <div className="overflow-hidden">
-        <div className="flex space-x-8 transition-transform duration-300 ease-in-out">
+      <div>
+        <div className="flex space-x-8">
           {visibleCards.map((card, index) => (
             <Events_RecapCard
               key={index}

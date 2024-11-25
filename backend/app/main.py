@@ -213,10 +213,63 @@ def get_recent_events():
             "startTime": row["startTime"],
             "endTime": row["endTime"],
             "notes": row["notes"],
-            "orgName": row["orgName"]  # Now this will work
+            "orgName": row["orgName"]
         }
         for row in events
     ]
 
     return recent_events
 
+@app.get("/get_date_event/")
+def get_event_date(day: int, month: int, year: int):
+    """
+    Returns all available events for the specified date.
+    
+    Args:
+        day (int): The day of the event.
+        month (int): The month of the event.
+        year (int): The year of the event.
+    
+    Returns:
+        List of dictionaries containing events for the specified date.
+    """
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    try:
+        # Query to find events on the specific date
+        cursor.execute(
+            """
+            SELECT e.id AS event_id, e.eventTitle, e.venue, e.notes,
+                   e.startTime, e.endTime, o.id AS org_id, o.orgName, o.isCollegeBased
+            FROM events e
+            INNER JOIN organizations o ON e.org_id = o.id
+            WHERE e.day = ? AND e.month = ? AND e.year = ?
+            """,
+            (day, month, year),
+        )
+
+        results = cursor.fetchall()
+        events = [
+            {
+                "event_id": row["event_id"],
+                "eventTitle": row["eventTitle"],
+                "venue": row["venue"],
+                "notes": row["notes"],
+                "startTime": row["startTime"],
+                "endTime": row["endTime"],
+                "organization": {
+                    "org_id": row["org_id"],
+                    "orgName": row["orgName"],
+                    "isCollegeBased": row["isCollegeBased"],
+                },
+            }
+            for row in results
+        ]
+
+        return {"events": events}
+
+    except sqlite3.Error as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+    finally:
+        conn.close()

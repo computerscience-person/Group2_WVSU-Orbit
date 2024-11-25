@@ -2,6 +2,7 @@
 import axios from "axios";
 
 export interface Event {
+  organization: any;
   event_id: number;
   eventTitle: string;
   venue: string;
@@ -39,6 +40,27 @@ export const fetchRecentEvents = async (): Promise<Event[]> => {
     return response.data;
   } catch (error) {
     console.error("Error fetching recent events: ", error);
+    return [];
+  }
+};
+
+// Fetch events by date
+export const fetchEventsByDate = async (
+  day: number,
+  month: number,
+  year: number
+): Promise<Event[]> => {
+  try {
+    const response = await axios.get(`http://localhost:8000/get_date_event/`, {
+      params: {
+        day: day,
+        month: month,
+        year: year,
+      },
+    });
+    return response.data.events; // Adjust to return only the events array
+  } catch (error) {
+    console.error("Error fetching events by date: ", error);
     return [];
   }
 };

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Events_EventDetails from "../components/events/Events_EventDetails";
 import Events_Carousel from "../components/events/Events_Carousel"; // Adjust the path if necessary
+import { fetchEventsByDate, Event } from "../api/api"; // Adjust the import path for the API function
 
 const Events = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
@@ -10,6 +11,7 @@ const Events = () => {
   const [daysInMonth, setDaysInMonth] = useState(0);
   const [firstDayOfMonth, setFirstDayOfMonth] = useState(0);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [events, setEvents] = useState<Event[]>([]);
 
   const monthNames = [
     "January",
@@ -35,6 +37,19 @@ const Events = () => {
     setFirstDayOfMonth(firstDay.getDay());
     setDaysInMonth(daysInMonth);
   }, [currentMonth, currentYear]);
+
+  useEffect(() => {
+    // Fetch events when selected date changes
+    const fetchEvents = async () => {
+      const day = selectedDate.getDate();
+      const month = selectedDate.getMonth() + 1; // month is 0-indexed, so add 1
+      const year = selectedDate.getFullYear();
+      const fetchedEvents = await fetchEventsByDate(day, month, year); // Use the fetch function
+      setEvents(fetchedEvents); // Set the events in state
+    };
+
+    fetchEvents();
+  }, [selectedDate]); // Trigger this effect whenever the selected date changes
 
   const handlePreviousMonth = () => {
     if (currentMonth === 0) {
@@ -93,19 +108,6 @@ const Events = () => {
   const dayOfWeek = selectedDate.toLocaleString("en-US", { weekday: "long" });
   const dayNumber = selectedDate.getDate();
 
-  const eventDetails = [
-    {
-      eventName: "Tech Enthusiasts | Innovative Tech Talk 2024",
-      eventPlace: "Third Floor, BINHI Building",
-      eventTime: "1:00 PM to 5:00 PM",
-    },
-    {
-      eventName: "Youth Leaders | Leadership Summit 2024",
-      eventPlace: "Auditorium, Main Building",
-      eventTime: "10:00 AM to 3:00 PM",
-    },
-  ];
-
   return (
     <div className="bg-pool flex flex-col min-h-screen">
       <Nav />
@@ -120,9 +122,9 @@ const Events = () => {
           </p>
         </div>
 
-        <div className="w-full flex flex-row justify-between px-40 py-10">
+        <div className="w-full flex flex-row justify-center space-x-28 py-10">
           {/* CALENDAR COMPONENT */}
-          <div className="font-leader ">
+          <div className="font-leader flex-none w-[400px]">
             {/* Previous - Current Month - Next */}
             <div className="flex items-center justify-between font-bold text-xs sm:text-sm md:text-base">
               {/* Left arrow */}
@@ -157,23 +159,32 @@ const Events = () => {
             </div>
           </div>
 
-          <div>
+          {/* EVENT DETAILS SECTION */}
+          <div className="flex-none w-[500px]">
             <h2 className="font-leader text-xl sm:text-3xl md:text-5xl mb-4">
               {dayNumber}, {dayOfWeek}
             </h2>
 
-            {eventDetails.map((detail, index) => (
-              <Events_EventDetails
-                key={index}
-                eventName={detail.eventName}
-                eventPlace={detail.eventPlace}
-                eventTime={detail.eventTime}
-              />
-            ))}
+            {/* Display fetched events dynamically */}
+            <div>
+              {events.length > 0 ? (
+                events.map((event, index) => (
+                  <Events_EventDetails
+                    key={index}
+                    eventName={event.eventTitle}
+                    eventPlace={event.venue}
+                    orgName={event.organization.orgName}
+                  />
+                ))
+              ) : (
+                <p className="font-content text-base sm:text-lg md:text-xl">
+                  No events for this date.
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </div>
-
       {/* ORBIT RECAP */}
       <div className="bg-white py-12 flex flex-col">
         <div className="flex flex-col items-center px-56">
@@ -189,6 +200,7 @@ const Events = () => {
         {/* Carousel */}
         <Events_Carousel />
       </div>
+
       <Footer />
     </div>
   );
