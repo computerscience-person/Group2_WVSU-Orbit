@@ -43,7 +43,8 @@ const Homepage = () => {
             University's organizations{" "}
             <strong>
               <em>all in one orbit</em>
-            </strong>.
+            </strong>
+            .
           </p>
         </div>
         <div className="w-full bg-gradient-to-b from-transparent to-sorbet">
@@ -73,9 +74,7 @@ const Homepage = () => {
       {/* pitch them up*/}
       <div className="bg-sorbet flex flex-wrap flex-col content-center justify-center">
         <div className="w-[70vw] flex flex-col justify-center text-center pb-12">
-          <h2 className="text-6xl font-leader pb-12">
-            Explore the Orbit.
-          </h2>
+          <h2 className="text-6xl font-leader pb-12">Explore the Orbit.</h2>
           <p className="text-lg font-content">
             WVSU-Orbit is a Lorem ipsum dolor sit amet, consectetur adipiscing
             elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -87,15 +86,11 @@ const Homepage = () => {
             laborum.
           </p>
           <p className="text-lg font-content">
-            <strong>
-              See types of organizations below.
-            </strong>
+            <strong>See types of organizations below.</strong>
           </p>
         </div>
         <div className="w-[70vw] flex flex-row justify-center">
-          <div className="w-[50%]">
-            {/* TODO: Insert WVSU Logo HERE */}
-          </div>
+          <div className="w-[50%]">{/* TODO: Insert WVSU Logo HERE */}</div>
           <div className="w-[50%] py-2 flex flex-wrap flex-column">
             <h3 className="w-full text-4xl font-leader pb-4">
               University-Based
@@ -126,9 +121,7 @@ const Homepage = () => {
               </strong>
             </Link>
           </div>
-          <div className="w-[50%]">
-            {/* TODO: Insert WVSU Logo HERE */}
-          </div>
+          <div className="w-[50%]">{/* TODO: Insert WVSU Logo HERE */}</div>
         </div>
       </div>
       <div className="p-12 flex flex-wrap flex-col content-center justify-center">
