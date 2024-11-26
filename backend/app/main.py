@@ -2,7 +2,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware  # Import CORS middleware
 import sqlite3
-from models import EventItem, OrganizationItem
+from app.models import EventItem, OrganizationItem
 from pathlib import Path
 from dotenv import load_dotenv
 import os
