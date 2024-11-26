@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import blackLogo from "../assets/logos/wvsu_orbit2.png";
 const navPages = [
   { name: "Home", path: "/" },
   { name: "About Us", path: "/about" },
@@ -13,7 +13,9 @@ const Footer = () => {
     <div className="h-auto min-h-[256px] flex flex-col px-6 sm:px-12 py-6 sm:py-8 justify-center items-center">
       <div className="w-full flex-grow flex flex-col sm:flex-row justify-between items-center sm:px-16">
         <div className="flex flex-row justify-center items-center mb-4 sm:mb-0">
-          <p className="font-content font-bold text-xl sm:text-2xl">LOGO</p>
+          <Link to="/">
+            <img src={blackLogo} className="sm:h-14 md:h-16 lg:h-20" />
+          </Link>
           <div className="ml-4 sm:ml-6">
             <p className="font-content font-bold text-sm sm:text-base">
               WVSU Orbit

@@ -3,7 +3,8 @@ import Nav from "../components/Nav.tsx";
 import Footer from "../components/Footer.tsx";
 import { Link } from "react-router-dom";
 import Events_EventDetails from "../components/events/Events_EventDetails.tsx";
-import bgImage from "../assets/students-jumping-college.jpg";
+import wvsuLogo from "../assets/logos/wvsu_logo.png";
+import cictLogo from "../assets/logos/wvsu_cict.png";
 
 const Homepage = () => {
   const [width, setWidth] = useState(globalThis.innerWidth);
@@ -17,14 +18,14 @@ const Homepage = () => {
   const rotCenter = width / 2;
   const eventDetails = [
     {
-      eventName: "Tech Enthusiasts | Innovative Tech Talk 2024",
+      eventName: "Innovative Tech Talk 2024",
       eventPlace: "Third Floor, BINHI Building",
-      eventTime: "1:00 PM to 5:00 PM",
+      orgName: "Tech Enthusiasts",
     },
     {
-      eventName: "Youth Leaders | Leadership Summit 2024",
+      eventName: "Leadership Summit 2024",
       eventPlace: "Auditorium, Main Building",
-      eventTime: "10:00 AM to 3:00 PM",
+      orgName: "Youth Leaders",
     },
   ];
   return (
@@ -43,7 +44,8 @@ const Homepage = () => {
             University's organizations{" "}
             <strong>
               <em>all in one orbit</em>
-            </strong>.
+            </strong>
+            .
           </p>
         </div>
         <div className="w-full bg-gradient-to-b from-transparent to-sorbet">
@@ -71,11 +73,9 @@ const Homepage = () => {
       </div>
       {/* cute divider thing */}
       {/* pitch them up*/}
-      <div className="bg-sorbet flex flex-wrap flex-col content-center justify-center">
-        <div className="w-[70vw] flex flex-col justify-center text-center pb-12">
-          <h2 className="text-6xl font-leader pb-12">
-            Explore the Orbit.
-          </h2>
+      <div className="bg-sorbet flex flex-wrap flex-col content-center justify-center pb-8">
+        <div className="w-[70vw] flex flex-col justify-center text-center pb-10">
+          <h2 className="text-6xl font-leader pb-12">Explore the Orbit.</h2>
           <p className="text-lg font-content">
             WVSU-Orbit is a Lorem ipsum dolor sit amet, consectetur adipiscing
             elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -87,16 +87,15 @@ const Homepage = () => {
             laborum.
           </p>
           <p className="text-lg font-content">
-            <strong>
-              See types of organizations below.
-            </strong>
+            <strong>See types of organizations below.</strong>
           </p>
         </div>
-        <div className="w-[70vw] flex flex-row justify-center">
-          <div className="w-[50%]">
-            {/* TODO: Insert WVSU Logo HERE */}
+
+        <div className="w-[70vw] py-2 flex flex-row justify-center space-x-8 pb-8">
+          <div className="w-[50%] flex justify-end items-center">
+            <img src={wvsuLogo} className="h-[18rem]" />
           </div>
-          <div className="w-[50%] py-2 flex flex-wrap flex-column">
+          <div className="w-[50%] py-10 flex flex-wrap flex-column">
             <h3 className="w-full text-4xl font-leader pb-4">
               University-Based
             </h3>
@@ -111,7 +110,8 @@ const Homepage = () => {
             </Link>
           </div>
         </div>
-        <div className="w-[70vw] py-2 flex flex-row justify-center">
+
+        <div className="w-[70vw] py-2 flex flex-row justify-center space-x-8 pb-8">
           <div className="w-[50%] flex flex-wrap flex-column">
             <h3 className="w-full text-4xl text-right font-leader pb-4">
               College-Based
@@ -127,7 +127,7 @@ const Homepage = () => {
             </Link>
           </div>
           <div className="w-[50%]">
-            {/* TODO: Insert WVSU Logo HERE */}
+            <img src={cictLogo} className="h-[18rem]" />
           </div>
         </div>
       </div>
@@ -144,7 +144,7 @@ const Homepage = () => {
               key={idx}
               eventName={detail.eventName}
               eventPlace={detail.eventPlace}
-              eventTime={detail.eventTime}
+              orgName={detail.orgName}
             />
           ))}
         </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import blackLogo from "../assets/logos/wvsu_orbit2.png";
 
 const Nav = () => {
   const location = useLocation();
@@ -16,11 +17,12 @@ const Nav = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    // <nav className="fixed w-screen top-0 border-red-500 border-2">
     <div>
       <nav className="w-full h-12 px-12">
         <div className="h-full w-full flex justify-between items-center">
-          <h1 className="font-content font-bold text-lg">LOGO</h1>
+          <Link to="/">
+            <img src={blackLogo} className="sm:h-6 md:h-8 lg:h-10" />
+          </Link>
           <div className="justify-center flex space-x-4 items-center">
             {navPages.map((page) => (
               <button
