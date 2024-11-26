@@ -126,6 +126,7 @@ const Homepage = () => {
               </strong>
             </Link>
           </div>
+
           <div className="w-[50%]">
             <img src={cictLogo} className="h-[18rem]" />
           </div>
