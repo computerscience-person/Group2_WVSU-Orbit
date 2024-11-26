@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 .direnv
 .envrc
+.env
+backend/app/__pycache__

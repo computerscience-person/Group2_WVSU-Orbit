@@ -13,16 +13,17 @@ const Events_RecapCard: React.FC<RecapCardProps> = ({
   url,
   bgColor,
 }) => {
-  const formattedUrl = url.startsWith("http://") || url.startsWith("https://")
-    ? url
-    : `https://${url}`;
+  const formattedUrl =
+    url.startsWith("http://") || url.startsWith("https://")
+      ? url
+      : `https://${url}`;
 
   return (
     <div
-      className={`${bgColor} font-content w-4/12 rounded-3xl p-10 pt-64 flex flex-col`}
+      className={`${bgColor} font-content w-4/12 rounded-3xl p-10 pt-20 flex flex-col`}
     >
       <div className="flex-grow"></div>
-      <div className="flex flex-col">
+      <div className="h-72 flex flex-col justify-end">
         <h1 className="text-lg sm:text-lg md:text-2xl break-words">
           {orgName}
         </h1>
@@ -31,6 +32,7 @@ const Events_RecapCard: React.FC<RecapCardProps> = ({
         </p>
       </div>
       <div className="mt-5">
+        {/* READ HERE LINK */}
         <div className="bg-white shadow-lg w-full rounded-full h-12 px-4 flex items-center justify-between">
           <a
             href={formattedUrl}

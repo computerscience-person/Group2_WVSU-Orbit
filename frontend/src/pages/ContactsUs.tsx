@@ -1,8 +1,28 @@
 import React from "react";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
+/* 
 
+SAMPLE BACKEND
+
+import { fetchOrganizationsAndEvents, Organization } from "../api/api";
+import { useEffect, useState } from "react";
+
+*/
 const ContactsUs = () => {
+  /* 
+  const [organizations, setOrganizations] = useState<Organization[]>([]);
+
+  useEffect(() => {
+    const loadOrganizations = async () => {
+      const data = await fetchOrganizationsAndEvents();
+      setOrganizations(data);
+    };
+
+    loadOrganizations();
+  }, []);
+
+ */
   return (
     <div className="bg-sunshine h-full flex flex-col min-h-screen">
       <Nav />
@@ -17,6 +37,43 @@ const ContactsUs = () => {
           Answer Form
         </button>
       </div>
+      {/* 
+      events and orgs code to display them
+      <div className="my-16">
+        {organizations.length > 0 ? (
+          organizations.map((org) => (
+            <div key={org.org_id} className="mb-8">
+              <h2 className="font-leader text-xl sm:text-2xl">{org.orgName}</h2>
+              <p>
+                {org.isCollegeBased
+                  ? "College-based Organization"
+                  : "Community-based Organization"}
+              </p>
+              <ul>
+                {org.events.length > 0 ? (
+                  org.events.map((event) => (
+                    <li key={event.event_id}>
+                      <h3 className="font-content text-lg">
+                        {event.eventTitle}
+                      </h3>
+                      <p>{event.venue}</p>
+                      <p>
+                        {event.month}/{event.day}/{event.year} -{" "}
+                        {event.startTime} to {event.endTime}
+                      </p>
+                      <p>{event.notes}</p>
+                    </li>
+                  ))
+                ) : (
+                  <p>No upcoming events.</p>
+                )}
+              </ul>
+            </div>
+          ))
+        ) : (
+          <p>Loading organizations...</p>
+        )}
+      </div> */}
 
       {/* Contact Form Section */}
       <div className="bg-white flex justify-center w-full top-0 rounded-t-[20%] sm:rounded-t-[30%] lg:rounded-t-[400px]">
