@@ -17,9 +17,9 @@ const Events_EventDetails: React.FC<EventDetailsProps> = ({
           {eventName}
         </p>
         <p className="font-bold text-xs sm:text-sm md:text-base truncate">
-          {orgName}
+          by {orgName}
         </p>
-        <p className="text-xs sm:text-sm md:text-base">{eventPlace}</p>
+        <p className="text-xs sm:text-sm md:text-base">at {eventPlace}</p>
       </div>
     </div>
   );
