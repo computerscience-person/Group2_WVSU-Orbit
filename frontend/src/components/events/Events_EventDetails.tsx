@@ -1,22 +1,24 @@
 interface EventDetailsProps {
   eventName: string;
-  eventTime: string;
   eventPlace: string;
+  orgName: string;
 }
 
 const Events_EventDetails: React.FC<EventDetailsProps> = ({
   eventName,
-  eventTime,
   eventPlace,
+  orgName,
 }) => {
   return (
-    <div className=" flex flex-row space-x-5 items-center mb-5">
-      <p className="font-content">ORG LOGO</p>
-
+    <div className="w-[400px] flex flex-row space-x-5 items-start mb-5">
       {/* ORG EVENT DETAILS */}
-      <div className="font-content">
-        <p className="font-bold text-xs sm:text-sm md:text-base">{eventName}</p>
-        <p className="text-xs sm:text-sm md:text-base">{eventTime}</p>
+      <div className="font-content flex flex-col">
+        <p className="font-bold text-xs sm:text-sm md:text-base truncate">
+          {eventName}
+        </p>
+        <p className="font-bold text-xs sm:text-sm md:text-base truncate">
+          {orgName}
+        </p>
         <p className="text-xs sm:text-sm md:text-base">{eventPlace}</p>
       </div>
     </div>

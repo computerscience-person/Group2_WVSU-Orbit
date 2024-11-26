@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Events_EventDetails from "../components/events/Events_EventDetails";
 import Events_Carousel from "../components/events/Events_Carousel"; // Adjust the path if necessary
+import { fetchEventsByDate, Event } from "../api/api"; // Adjust the import path for the API function
 
 const Events = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
@@ -10,6 +11,7 @@ const Events = () => {
   const [daysInMonth, setDaysInMonth] = useState(0);
   const [firstDayOfMonth, setFirstDayOfMonth] = useState(0);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [events, setEvents] = useState<Event[]>([]);
 
   const monthNames = [
     "January",
@@ -36,6 +38,19 @@ const Events = () => {
     setDaysInMonth(daysInMonth);
   }, [currentMonth, currentYear]);
 
+  useEffect(() => {
+    // Fetch events when selected date changes
+    const fetchEvents = async () => {
+      const day = selectedDate.getDate();
+      const month = selectedDate.getMonth() + 1; // month is 0-indexed, so add 1
+      const year = selectedDate.getFullYear();
+      const fetchedEvents = await fetchEventsByDate(day, month, year); // Use the fetch function
+      setEvents(fetchedEvents); // Set the events in state
+    };
+
+    fetchEvents();
+  }, [selectedDate]); // Trigger this effect whenever the selected date changes
+
   const handlePreviousMonth = () => {
     if (currentMonth === 0) {
       setCurrentMonth(11);
@@ -57,8 +72,8 @@ const Events = () => {
   const renderDays = () => {
     const days = [];
     const today = new Date(); // Get today's date
-    const isCurrentMonth = today.getMonth() === currentMonth &&
-      today.getFullYear() === currentYear;
+    const isCurrentMonth =
+      today.getMonth() === currentMonth && today.getFullYear() === currentYear;
 
     for (let i = 0; i < firstDayOfMonth; i++) {
       days.push(<div key={`empty-${i}`} className="text-center py-2"></div>);
@@ -66,7 +81,8 @@ const Events = () => {
 
     for (let day = 1; day <= daysInMonth; day++) {
       const isToday = isCurrentMonth && day === today.getDate(); // Check if the day is today
-      const isSelected = selectedDate.getDate() === day &&
+      const isSelected =
+        selectedDate.getDate() === day &&
         selectedDate.getMonth() === currentMonth &&
         selectedDate.getFullYear() === currentYear;
 
@@ -77,10 +93,11 @@ const Events = () => {
             isToday ? "bg-sunshine rounded-full" : ""
           } ${isSelected ? "bg-tangerine font-bold rounded-full" : ""}`}
           onClick={() =>
-            setSelectedDate(new Date(currentYear, currentMonth, day))}
+            setSelectedDate(new Date(currentYear, currentMonth, day))
+          }
         >
           {day}
-        </div>,
+        </div>
       );
     }
 
@@ -90,48 +107,6 @@ const Events = () => {
   // Get values from selectedDate
   const dayOfWeek = selectedDate.toLocaleString("en-US", { weekday: "long" });
   const dayNumber = selectedDate.getDate();
-
-  // Sample data for event details
-  const eventDetails = [
-    {
-      eventName: "Tech Enthusiasts | Innovative Tech Talk 2024",
-      eventPlace: "Third Floor, BINHI Building",
-      eventTime: "1:00 PM to 5:00 PM",
-    },
-    {
-      eventName: "Youth Leaders | Leadership Summit 2024",
-      eventPlace: "Auditorium, Main Building",
-      eventTime: "10:00 AM to 3:00 PM",
-    },
-  ];
-
-  // Sample data for recap cards
-  const cards = [
-    {
-      orgName: "Tech Enthusiasts",
-      eventName: "Innovative Tech Talk 2024",
-      url: "https://techconference.com",
-      bgColor: "bg-pool",
-    },
-    {
-      orgName: "Creative Minds",
-      eventName: "Artistic Creations Expo",
-      url: "https://artgallery.com",
-      bgColor: "bg-palmleaf",
-    },
-    {
-      orgName: "Youth Leaders",
-      eventName: "Leadership Summit 2024",
-      url: "https://leadershipsummit.com",
-      bgColor: "bg-tangerine",
-    },
-    {
-      orgName: "Health Advocates",
-      eventName: "Wellness Workshop Series",
-      url: "https://wellnessworkshop.com",
-      bgColor: "bg-sorbet",
-    },
-  ];
 
   return (
     <div className="bg-pool flex flex-col min-h-screen">
@@ -147,9 +122,9 @@ const Events = () => {
           </p>
         </div>
 
-        <div className="w-full flex flex-row justify-between px-40 py-10">
+        <div className="w-full flex flex-row justify-center space-x-28 py-10">
           {/* CALENDAR COMPONENT */}
-          <div className="font-leader ">
+          <div className="font-leader flex-none w-[400px]">
             {/* Previous - Current Month - Next */}
             <div className="flex items-center justify-between font-bold text-xs sm:text-sm md:text-base">
               {/* Left arrow */}
@@ -184,23 +159,32 @@ const Events = () => {
             </div>
           </div>
 
-          <div>
+          {/* EVENT DETAILS SECTION */}
+          <div className="flex-none w-[500px]">
             <h2 className="font-leader text-xl sm:text-3xl md:text-5xl mb-4">
               {dayNumber}, {dayOfWeek}
             </h2>
 
-            {eventDetails.map((detail, index) => (
-              <Events_EventDetails
-                key={index}
-                eventName={detail.eventName}
-                eventPlace={detail.eventPlace}
-                eventTime={detail.eventTime}
-              />
-            ))}
+            {/* Display fetched events dynamically */}
+            <div>
+              {events.length > 0 ? (
+                events.map((event, index) => (
+                  <Events_EventDetails
+                    key={index}
+                    eventName={event.eventTitle}
+                    eventPlace={event.venue}
+                    orgName={event.organization.orgName}
+                  />
+                ))
+              ) : (
+                <p className="font-content text-base sm:text-lg md:text-xl">
+                  No events for this date.
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </div>
-
       {/* ORBIT RECAP */}
       <div className="bg-white py-12 flex flex-col">
         <div className="flex flex-col items-center px-56">
@@ -214,8 +198,9 @@ const Events = () => {
           </p>
         </div>
         {/* Carousel */}
-        <Events_Carousel cards={cards} />
+        <Events_Carousel />
       </div>
+
       <Footer />
     </div>
   );
