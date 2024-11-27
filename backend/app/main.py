@@ -1,4 +1,5 @@
 # main.py (backend)
+from typing import List
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware  # Import CORS middleware
 import sqlite3
@@ -268,6 +269,65 @@ def get_event_date(day: int, month: int, year: int):
         ]
 
         return {"events": events}
+
+    except sqlite3.Error as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+    finally:
+        conn.close()
+        
+@app.get("/get_future_events/")
+def get_future_events(day: int, month: int, year: int):
+    """
+    Returns the next three nearest events after the specified date.
+
+    Args:
+        day (int): The day of the starting date.
+        month (int): The month of the starting date.
+        year (int): The year of the starting date.
+
+    Returns:
+        A dictionary with the next three nearest events.
+    """
+    conn = connect_db()
+    conn.row_factory = sqlite3.Row  # Enable dictionary-like access to rows
+    cursor = conn.cursor()
+
+    try:
+        # Query to find the next three nearest events after the specified date
+        cursor.execute(
+            """
+            SELECT e.id AS event_id, e.eventTitle, e.venue, e.notes,
+                   e.startTime, e.endTime, o.id AS org_id, o.orgName, o.isCollegeBased
+            FROM events e
+            INNER JOIN organizations o ON e.org_id = o.id
+            WHERE (e.year > ?)
+               OR (e.year = ? AND e.month > ?)
+               OR (e.year = ? AND e.month = ? AND e.day > ?)
+            ORDER BY e.year, e.month, e.day
+            LIMIT 3
+            """,
+            (year, year, month, year, month, day),
+        )
+
+        results = cursor.fetchall()
+        future_events = [
+            {
+                "event_id": row["event_id"],
+                "eventTitle": row["eventTitle"],
+                "venue": row["venue"],
+                "notes": row["notes"],
+                "startTime": row["startTime"],
+                "endTime": row["endTime"],
+                "organization": {
+                    "org_id": row["org_id"],
+                    "orgName": row["orgName"],
+                    "isCollegeBased": row["isCollegeBased"],
+                },
+            }
+            for row in results
+        ]
+
+        return {"events": future_events}
 
     except sqlite3.Error as e:
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
