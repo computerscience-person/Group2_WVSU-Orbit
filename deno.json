@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "flowbite-react": "npm:flowbite-react@^0.10.2"
+  }
+}
