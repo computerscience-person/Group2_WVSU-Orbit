@@ -12,17 +12,21 @@ const About_CoreValues: React.FC<AboutCoreValues> = ({
   coreDesc,
 }) => {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col justify-center items-center w-[15rem] h-[20rem] space-y-5">
       {/* Background image */}
-      <div className=" sm:w-40 md:w-60 lg:w-60 sm:h-40 md:h-60 lg:h-60 md:mt-16 lg:mt-16 flex justify-center items-center rounded-lg">
-        <img src={imageSrc} alt="DevImage" />
+      <div className="max-h-[15rem]">
+        <img
+          src={imageSrc}
+          alt="DevImage"
+          className="bg-gray-400 rounded-full h-full py-[2rem]"
+        />
       </div>
       {/* Core title */}
-      <p className="font-content sm:text-2xl md:text-3xl lg:text-3xl sm:mt-8 md:mt-10 lg:mt-10 text-center">
+      <p className="font-content font-bold text-base sm:text-lg md:text-xl text-center">
         {coreTitle}
       </p>
       {/* Core description */}
-      <p className="font-content sm:text-1xl md:text-2xl lg:text-2xl mt-4 text-center">
+      <p className="font-content text-base sm:text-lg md:text-xl text-center">
         {coreDesc}
       </p>
     </div>
