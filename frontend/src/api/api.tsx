@@ -1,6 +1,13 @@
 // api.ts
 import axios from "axios";
 
+export interface Organization {
+  org_id: number;
+  orgName: string;
+  isCollegeBased: boolean;
+  events: Event[];
+}
+
 export interface Event {
   organization: any;
   event_id: number;
@@ -13,13 +20,6 @@ export interface Event {
   endTime: string | null;
   notes: string | null;
   orgName: string;
-}
-
-export interface Organization {
-  org_id: number;
-  orgName: string;
-  isCollegeBased: boolean;
-  events: Event[];
 }
 
 export const fetchOrganizationsAndEvents = async (): Promise<
@@ -61,6 +61,26 @@ export const fetchEventsByDate = async (
     return response.data.events; // Adjust to return only the events array
   } catch (error) {
     console.error("Error fetching events by date: ", error);
+    return [];
+  }
+};
+
+export const fetchFutureEvents = async (
+  day: number,
+  month: number,
+  year: number
+): Promise<Event[]> => {
+  try {
+    // Call the `/get_future_events/` endpoint with query parameters
+    const response = await axios.get(
+      "http://localhost:8000/get_future_events/",
+      {
+        params: { day: day, month: month, year: year },
+      }
+    );
+    return response.data.events; // API returns a list of Event objects
+  } catch (error) {
+    console.error("Error fetching future events: ", error);
     return [];
   }
 };

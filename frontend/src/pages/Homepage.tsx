@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 import Events_EventDetails from "../components/events/Events_EventDetails.tsx";
 import wvsuLogo from "../assets/logos/wvsu_logo.png";
 import cictLogo from "../assets/logos/wvsu_cict.png";
+import { fetchFutureEvents, Event } from "../api/api";
 
 const Homepage = () => {
   const [width, setWidth] = useState(globalThis.innerWidth);
+  const [events, setEvents] = useState<Event[]>([]);
   useEffect(() => {
     const updateDims = () => {
       setWidth(globalThis.innerWidth);
@@ -16,18 +18,19 @@ const Homepage = () => {
     return () => globalThis.removeEventListener("resize", updateDims);
   }, []);
   const rotCenter = width / 2;
-  const eventDetails = [
-    {
-      eventName: "Innovative Tech Talk 2024",
-      eventPlace: "Third Floor, BINHI Building",
-      orgName: "Tech Enthusiasts",
-    },
-    {
-      eventName: "Leadership Summit 2024",
-      eventPlace: "Auditorium, Main Building",
-      orgName: "Youth Leaders",
-    },
-  ];
+
+  useEffect(() => {
+    const fetchFutureEventsDetails = async () => {
+      const newDate = new Date();
+      const date = newDate.getDate();
+      const month = newDate.getMonth() + 1;
+      const year = newDate.getFullYear();
+      const fetchedFutureEvents = await fetchFutureEvents(date, month, year);
+      setEvents(fetchedFutureEvents);
+    };
+    fetchFutureEventsDetails();
+  }, []);
+
   return (
     <>
       {/* greeter screen */}
@@ -140,14 +143,20 @@ const Homepage = () => {
           </p>
         </div>
         <div>
-          {eventDetails.map((detail, idx) => (
-            <Events_EventDetails
-              key={idx}
-              eventName={detail.eventName}
-              eventPlace={detail.eventPlace}
-              orgName={detail.orgName}
-            />
-          ))}
+          {events.length === 0 ? (
+            <p className="text-center font-content text-lg pb-8">
+              WVSU is quiet right now. No events found.
+            </p>
+          ) : (
+            events.map((event, idx) => (
+              <Events_EventDetails
+                key={idx}
+                eventName={event.eventTitle}
+                eventPlace={event.venue}
+                orgName={event.organization.orgName}
+              />
+            ))
+          )}
         </div>
         <div>
           <Link to="/events" className="font-content text-lg py-2">
