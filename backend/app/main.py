@@ -3,7 +3,7 @@ from typing import List
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware  # Import CORS middleware
 import sqlite3
-from app.models import EventItem, OrganizationItem
+from app.models import EventItem, OrganizationItem, ConcernsItem
 from pathlib import Path
 from dotenv import load_dotenv
 import os
@@ -333,3 +333,60 @@ def get_future_events(day: int, month: int, year: int):
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
     finally:
         conn.close()
+
+@app.get("/read-concerns")
+def read_concerns():
+    """
+    Returns all concerns for documentation purposes.
+    """
+    conn = connect_db()
+    try:
+        cursor = conn.cursor()
+
+        # SQL query to fetch concerns
+        cursor.execute("""
+            SELECT c.id AS concerns_id, c.name, c.email, c.subject, c.message
+            FROM concerns c
+        """)
+
+        concerns = cursor.fetchall()
+
+        # Process the rows into a list of dictionaries
+        result = [
+            {
+                "concerns_id": row["concerns_id"],
+                "name": row["name"],
+                "email": row["email"],
+                "subject": row["subject"],
+                "message": row["message"],
+            }
+            for row in concerns
+        ]
+
+        return {"concerns": result}
+
+    except sqlite3.Error as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+    finally:
+        conn.close()
+
+# Creating organizations - FOR DOCS ONLY
+@app.post("/create-concerns/")
+def create_concerns(concerns_item: ConcernsItem):
+    print("Received data:", concerns_item)
+    conn = connect_db()
+    cursor = conn.cursor()
+    
+    try:
+        # Insert organization data into DB table
+        cursor.execute(""" 
+                    INSERT INTO concerns (name, email, subject, message) VALUES (?, ?, ?, ?)
+                    """, (concerns_item.name, concerns_item.email, concerns_item.subject, concerns_item.message))
+        conn.commit()
+    except sqlite3.Error as e:
+        conn.rollback()
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+    finally:
+        conn.close()
+        
+    return {"message": "Concern added successfully."}
