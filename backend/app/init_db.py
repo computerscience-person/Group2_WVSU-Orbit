@@ -27,6 +27,15 @@ cursor.execute("""
     FOREIGN KEY (org_id) REFERENCES organizations(id) ON DELETE CASCADE
 )
 """ )
+# concerns table
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS concerns (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT DEFAULT NULL,
+    email TEXT NOT NULL,
+    subject TEXT NOT NULL,
+    message TEXT NOT NULL
+)""" )
     
 conn.commit()
 conn.close()

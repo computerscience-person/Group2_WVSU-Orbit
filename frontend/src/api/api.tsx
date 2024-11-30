@@ -22,6 +22,14 @@ export interface Event {
   orgName: string;
 }
 
+export interface Concerns {
+  concerns_id: number;
+  name: string | null;
+  email: string;
+  subject: string;
+  message: string;
+}
+
 export const fetchOrganizationsAndEvents = async (): Promise<
   Organization[]
 > => {
@@ -82,5 +90,25 @@ export const fetchFutureEvents = async (
   } catch (error) {
     console.error("Error fetching future events: ", error);
     return [];
+  }
+};
+
+export const postConcerns = async (
+  name: string,
+  email: string,
+  subject: string,
+  message: string
+): Promise<string> => {
+  try {
+    const response = await axios.post("http://localhost:8000/create-concerns/", {
+      name,
+      email,
+      subject,
+      message,
+    });
+    return response.data.message; // Return the success message
+  } catch (error) {
+    console.error("Error posting concerns", error);
+    throw error;
   }
 };
