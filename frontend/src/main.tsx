@@ -10,6 +10,7 @@ import AboutUs from "./pages/AboutUs.tsx";
 import ContactsUs from "./pages/ContactsUs.tsx";
 import Events from "./pages/Events.tsx";
 import Organizations from "./pages/Organizations.tsx";
+import OrgPage from "./pages/OrgPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -32,10 +33,14 @@ const router = createBrowserRouter([
     path: "orgs",
     element: <Organizations />,
   },
+  {
+    path: "orgpage",
+    element: <OrgPage />,
+  },
 ]);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>,
+  </StrictMode>
 );
