@@ -6,44 +6,51 @@ import sampleImage from "../assets/coreValues/saturn.png";
 import missionImg from "../assets/icons/mision_image.webp";
 import visionImg from "../assets/icons/vision_image.png";
 
+import Manuel_aboutPic from "../assets/photos/about_manns.png";
+import Oliver_aboutPic from "../assets/photos/about_ollie.png";
+import Angelika_aboutPic from "../assets/photos/about_aika.png";
+import Reycel_aboutPic from "../assets/photos/about_reycel.png";
+import Els_aboutPic from "../assets/photos/about_els.png";
+import Cristopher_aboutPic from "../assets/photos/about_cris.png";
+
 const threeDevs1 = [
   {
-    imageSrc: sampleImage,
+    imageSrc: Manuel_aboutPic,
     devName: "John Manuel Carado",
     bgColor: "bg-pool",
     devRole: "Project Manager",
   },
   {
-    imageSrc: sampleImage,
+    imageSrc: Oliver_aboutPic,
     devName: "Oliver Ladores",
     bgColor: "bg-sorbet",
     devRole: "Lead Developer",
   },
   {
-    imageSrc: sampleImage,
+    imageSrc: Angelika_aboutPic,
     devName: "Angelika Marie Nava",
-    bgColor: "bg-pool",
+    bgColor: "bg-palmleaf",
     devRole: "UI/UX Designer",
   },
 ];
 
 const threeDevs2 = [
   {
-    imageSrc: sampleImage,
+    imageSrc: Reycel_aboutPic,
     devName: "Reycel Sarmiento",
-    bgColor: "bg-sorbet",
+    bgColor: "bg-palmleaf",
     devRole: "UI/UX Designer",
   },
   {
-    imageSrc: sampleImage,
+    imageSrc: Els_aboutPic,
     devName: "Els Dave Constantino",
-    bgColor: "bg-pool",
+    bgColor: "bg-sorbet",
     devRole: "Fullstack Developer",
   },
   {
-    imageSrc: sampleImage,
+    imageSrc: Cristopher_aboutPic,
     devName: "Cristopher Ian Artacho",
-    bgColor: "bg-sorbet",
+    bgColor: "bg-pool",
     devRole: "Front-end Developer",
   },
 ];
@@ -51,18 +58,21 @@ const threeDevs2 = [
 const coreValuesComponents = [
   {
     imageSrc: sampleImage,
-    coreTitle: "PEACE",
-    coreDesc: "Peace is the key to happiness. Peace2x.",
+    coreTitle: "CONNECTION",
+    coreDesc:
+      "Encouraging students to engage and form meaningful relationships within the campus community.",
   },
   {
     imageSrc: sampleImage,
-    coreTitle: "PEACE",
-    coreDesc: "Peace is the key to happiness. Peace2x.",
+    coreTitle: "INCLUSIVITY",
+    coreDesc:
+      "Building a space where diverse ideas, cultures, and voices are respected, embraced, and celebrated.",
   },
   {
     imageSrc: sampleImage,
-    coreTitle: "PEACE",
-    coreDesc: "Peace is the key to happiness. Peace2x.",
+    coreTitle: "EMPOWERMENT",
+    coreDesc:
+      "Empowering students to shape their college experience through involvement and leadership.",
   },
 ];
 
@@ -78,14 +88,17 @@ const AboutUs = () => {
             ABOUT WVSU ORBIT
           </h1>
         </div>
-        <div className="flex flex-col items-center px-44 pt-48 pb-24">
+        <div className="flex flex-col items-center px-80 pt-48 pb-24">
           {/* ABOUT WVSU ORBIT */}
           <p className="font-content text-base sm:text-lg md:text-xl  text-center">
-            WVSU Orbit kckvkvnsknvskvnksvs t kckvkvnsknvskvnksvst
-            kckvkvnsknvskvnksvst kckvkvnsknvskvnksvst kckvkvnsknvLorem ipsum
-            dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna. Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt
+            WVSU Orbit is a centralized platform that enables students at West
+            Visayas State University to explore, connect, and engage with campus
+            organizations. Whether you're discovering new clubs, attending
+            events, or getting involved in activities, WVSU Orbit makes it
+            simple to stay connected with the vibrant campus community. With an
+            easy-to-use directory and an up-to-date event calendar, the platform
+            helps students find their place, stay informed, and make the most of
+            their college experience at WVSU.
           </p>
         </div>
       </div>
@@ -109,10 +122,11 @@ const AboutUs = () => {
                 Mission
               </h1>
               <p className="font-content text-base sm:text-lg md:text-xl">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna. Lorem ipsum
-                dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna.
+                WVSU Orbit aims to create a centralized platform where students
+                can explore, connect, and engage with student organizations and
+                events. By fostering inclusivity, collaboration, and personal
+                growth, we seek to enrich the student experience at WVSU and
+                help build a dynamic and thriving campus community
               </p>
             </div>
             <img src={visionImg} className="max-h-full" />
@@ -128,21 +142,21 @@ const AboutUs = () => {
                 Vision
               </h1>
               <p className="font-content text-base sm:text-lg md:text-xl">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna. Lorem ipsum
-                dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna.
+                To be the leading platform at West Visayas State University that
+                fosters a connected, engaged, and empowered student body,
+                creating a dynamic campus community where every student can
+                explore, grow, and succeed.
               </p>
             </div>
           </div>
         </div>
       </div>
       {/* CREATING A PARENT DIV TO ACCOMMODATE THE MULTIPLE LAYERS */}
-      <div className="bg-white flex flex-col py-[8vh] px-[5rem]">
+      <div className="bg-white min-h-screen flex flex-col py-[8vh] px-[5rem]">
         <h1 className="font-leader sm:text-2xl md:text-3xl lg:text-4xl text-center">
           Core Values
         </h1>
-        <div className="py-[5rem] flex flex-row justify-center items-center space-x-[8rem]">
+        <div className="py-[5rem] flex flex-row justify-center items-center space-x-[8rem] mt-16">
           {coreValuesComponents.map((coreVal) => (
             <About_CoreValues
               coreDesc={coreVal.coreDesc}
