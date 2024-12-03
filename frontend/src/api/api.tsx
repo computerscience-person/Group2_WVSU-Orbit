@@ -100,12 +100,15 @@ export const postConcerns = async (
   message: string
 ): Promise<string> => {
   try {
-    const response = await axios.post("http://localhost:8000/create-concerns/", {
-      name,
-      email,
-      subject,
-      message,
-    });
+    const response = await axios.post(
+      "http://localhost:8000/create-concerns/",
+      {
+        name,
+        email,
+        subject,
+        message,
+      }
+    );
     return response.data.message; // Return the success message
   } catch (error) {
     console.error("Error posting concerns", error);
