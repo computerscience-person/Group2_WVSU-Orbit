@@ -82,7 +82,8 @@ const AboutUs = () => {
       {/* LAYER 1 */}
       <div className="flex flex-col min-h-screen overflow-hidden">
         <Nav />
-        <div className="absolute left-1/2 -translate-x-1/2 sm:w-[120vw] sm:h-[85vh] md:w-[120vw] md:h-[100vh]  lg:w-[120vw] lg:h-[100vh] bg-[#FF6C1F] rounded-[50%_50%] top-[-50vh] -z-10"></div>
+
+        <div className="relative left-1/2 -translate-x-1/2 sm:w-[120vw] sm:h-[85vh] md:w-[120vw] md:h-[100vh]  lg:w-[120vw] lg:h-[100vh] bg-[#FF6C1F] rounded-[50%_50%] top-[-50vh] -z-10 mb-[-90vh] "></div>
         <div className="flex justify-center py-20">
           <h1 className="font-leader text-3xl sm:text-5xl md:text-6xl">
             ABOUT WVSU ORBIT
@@ -170,7 +171,7 @@ const AboutUs = () => {
       {/* CREATING A PARENT DIV TO ACCOMMODATE THE MULTIPLE LAYERS */}
 
       {/* LAYER 4 */}
-      <div className="bg-tangerine flex flex-col py-[8vh] px-[5rem]">
+      <div className=" bg-tangerine flex flex-col py-[8vh] px-[5rem]">
         <h1 className="font-leader sm:text-2xl md:text-3xl lg:text-4xl text-center pb-[2rem]">
           Team Behind WVSU Orbit
         </h1>
