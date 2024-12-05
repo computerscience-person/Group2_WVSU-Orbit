@@ -3,7 +3,7 @@
 import Homepage from "./pages/Homepage.tsx";
 const App = () => {
   return (
-    <div>
+    <div className="overflow-hidden">
       <Homepage />
     </div>
   );
