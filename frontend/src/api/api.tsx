@@ -5,20 +5,19 @@ export interface Organization {
   org_id: number;
   orgName: string;
   isCollegeBased: boolean;
+  orgDetails: string;
+  logoUrl: string;
   events: Event[];
 }
 
 export interface Event {
-  organization: any;
+  organization: Organization;
   event_id: number;
   eventTitle: string;
   venue: string;
   month: number;
   day: number;
   year: number;
-  startTime: string | null;
-  endTime: string | null;
-  notes: string | null;
   orgName: string;
 }
 
@@ -113,5 +112,15 @@ export const postConcerns = async (
   } catch (error) {
     console.error("Error posting concerns", error);
     throw error;
+  }
+};
+
+export const fetchOrganizations = async (): Promise<Organization[]> => {
+  try {
+    const response = await axios.get("http://localhost:8000/get_orgs/");
+    return response.data; // Return the list of organizations
+  } catch (error) {
+    console.error("Error fetching organizations:", error);
+    return [];
   }
 };

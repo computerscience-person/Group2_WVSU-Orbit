@@ -7,6 +7,7 @@ interface Card {
   eventName: string;
   url: string;
   bgColor: string;
+  logoUrl: string;
 }
 
 const Events_Carousel: React.FC = () => {
@@ -32,6 +33,7 @@ const Events_Carousel: React.FC = () => {
         const mappedCards: Card[] = data.map((event) => ({
           orgName: event.orgName ?? "Unknown Organization", // Fallback for null/undefined orgName
           eventName: event.eventTitle,
+          logoUrl: event.organization.logoUrl,
           url: "facebook.com",
           bgColor: colors[Math.floor(Math.random() * colors.length)], // Randomly assign a color
         }));
@@ -77,6 +79,7 @@ const Events_Carousel: React.FC = () => {
               eventName={card.eventName}
               url={card.url}
               bgColor={card.bgColor}
+              logoUrl={card.logoUrl}
             />
           ))}
         </div>

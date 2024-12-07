@@ -8,13 +8,12 @@ class EventItem(BaseModel):
     month: int
     day: int
     year: int
-    startTime: Optional[str] = None
-    endTime: Optional[str] = None
-    notes: Optional[str] = None
 
 class OrganizationItem(BaseModel):
     orgName: str
     isCollegeBased: bool
+    orgDetails: str
+    logoUrl: str
 
 class ConcernsItem(BaseModel):
     name: str | None 

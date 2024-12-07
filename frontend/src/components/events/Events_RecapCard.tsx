@@ -5,6 +5,7 @@ interface RecapCardProps {
   eventName: string;
   url: string;
   bgColor: string;
+  logoUrl: string;
 }
 
 const Events_RecapCard: React.FC<RecapCardProps> = ({
@@ -12,6 +13,7 @@ const Events_RecapCard: React.FC<RecapCardProps> = ({
   eventName,
   url,
   bgColor,
+  logoUrl,
 }) => {
   const formattedUrl =
     url.startsWith("http://") || url.startsWith("https://")
@@ -20,8 +22,9 @@ const Events_RecapCard: React.FC<RecapCardProps> = ({
 
   return (
     <div
-      className={`${bgColor} font-content w-4/12 rounded-3xl p-10 pt-20 flex flex-col`}
+      className={`${bgColor} font-content w-4/12 rounded-3xl p-10 pt-5 flex flex-col`}
     >
+      <img src={logoUrl} className="h-[5rem] w-[5rem] rounded-full shadow-lg" />
       <div className="flex-grow"></div>
       <div className="h-72 flex flex-col justify-end">
         <h1 className="text-lg sm:text-lg md:text-2xl break-words">
