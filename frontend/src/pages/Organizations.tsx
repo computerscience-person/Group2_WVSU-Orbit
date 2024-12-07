@@ -3,6 +3,9 @@ import UniversityCarousel from "../components/organizations/UniversityCarousel";
 import CollegeCarousel from "../components/organizations/CollegeCarousel";
 import Footer from "../components/Footer";
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8233122 (Refactor org logo layout)
 import lakas from "../assets/logos/lakas_youth_organization.jpg";
 import usa from "../assets/logos/usa_logo.jpg";
 import spark from "../assets/logos/spark_hub_logo.jpg";
@@ -16,6 +19,7 @@ import link from "../assets/logos/link.exe_logo.jpg";
 import cictUSA from "../assets/logos/cict-usa.jpg";
 import icon from "../assets/logos/icon_publication_logo.jpg";
 import Organizations_LogoPlaceholder from "../components/organizations/Organizations_LogoPlaceholder";
+<<<<<<< HEAD
 =======
 import lakas from '../assets/logos/lakas_youth_organization.jpg'
 import usa from '../assets/logos/usa_logo.jpg'
@@ -30,6 +34,8 @@ import link from '../assets/logos/link.exe_logo.jpg'
 import cictUSA from '../assets/logos/cict-usa.jpg'
 import icon from '../assets/logos/icon_publication_logo.jpg'
 >>>>>>> 4676d22 (added logos on org page)
+=======
+>>>>>>> 8233122 (Refactor org logo layout)
 
 const Organizations = () => {
   return (
@@ -50,15 +56,22 @@ const Organizations = () => {
         </div>
       </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
       
 >>>>>>> 4676d22 (added logos on org page)
+=======
+
+>>>>>>> 8233122 (Refactor org logo layout)
       <div className="py-7">
         <h1 className="text-center justify-start font-leader sm:text-2xl md:text-3xl lg:text-4xl">
           University-Based Organizations
         </h1>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8233122 (Refactor org logo layout)
         <div className="flex flex-wrap justify-center gap-y-[1.5rem] py-10 px-[10rem]">
           <Organizations_LogoPlaceholder
             orgName="LAKAS Youth Organization"
@@ -84,6 +97,7 @@ const Organizations = () => {
             orgName="WVSU - Association of DOST Scholars"
             logoImg={dost}
           />
+<<<<<<< HEAD
 =======
         <div className="py-20 px-14">
           <div className="flex flex-row justify-center gap-36 pb-20">
@@ -127,6 +141,8 @@ const Organizations = () => {
           </div>
           </div>
 >>>>>>> 4676d22 (added logos on org page)
+=======
+>>>>>>> 8233122 (Refactor org logo layout)
         </div>
       </div>
       {/* block 3 */}
@@ -135,6 +151,9 @@ const Organizations = () => {
           College-Based Organizations
         </h1>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8233122 (Refactor org logo layout)
         <div className="flex flex-wrap justify-center gap-y-[1.5rem] py-10 px-[10rem]">
           <Organizations_LogoPlaceholder
             orgName="Cyb Robotics Organization"
@@ -160,6 +179,7 @@ const Organizations = () => {
             orgName="ICON Publication"
             logoImg={icon}
           />
+<<<<<<< HEAD
 =======
         <div className="py-20 px-14">
           <div className="flex flex-row justify-center gap-36 pb-20">
@@ -206,6 +226,8 @@ const Organizations = () => {
             Stay tuned! More organizations from other colleges will be added soon.
             </p>
 >>>>>>> 4676d22 (added logos on org page)
+=======
+>>>>>>> 8233122 (Refactor org logo layout)
         </div>
         <p className="font-content italic text-center text-base sm:text-lg md:text-2xl pt-[2rem]">
           Stay tuned! More organizations from other colleges will be added soon.
