@@ -9,7 +9,9 @@ cursor.execute("""
     CREATE TABLE IF NOT EXISTS organizations (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     orgName TEXT NOT NULL,
-    isCollegeBased BOOLEAN NOT NULL
+    isCollegeBased BOOLEAN NOT NULL,
+    orgDetails TEXT NOT NULL,
+    logoUrl TEXT NOT NULL
 )""" )
 # events table
 cursor.execute(""" 
@@ -18,12 +20,9 @@ cursor.execute("""
     org_id INTEGER NOT NULL,
     eventTitle TEXT NOT NULL,
     venue TEXT NOT NULL,
-    notes TEXT,
     month INTEGER NOT NULL,
     day INTEGER NOT NULL,
     year INTEGER NOT NULL,
-    startTime INTEGER,
-    endTime INTEGER,
     FOREIGN KEY (org_id) REFERENCES organizations(id) ON DELETE CASCADE
 )
 """ )

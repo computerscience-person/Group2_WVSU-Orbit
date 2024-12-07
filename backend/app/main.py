@@ -45,9 +45,8 @@ def read_items():
 
     # SQL query to fetch organizations and their associated events
     cursor.execute("""
-        SELECT o.id AS org_id, o.orgName, o.isCollegeBased, 
-            e.id AS event_id, e.eventTitle, e.venue, e.startTime, e.endTime, e.notes,
-            e.month, e.day, e.year
+        SELECT o.id AS org_id, o.orgName, o.isCollegeBased, o.orgDetails, o.logoUrl,
+            e.id AS event_id, e.eventTitle, e.venue, e.month, e.day, e.year
         FROM organizations o
         LEFT JOIN events e ON o.id = e.org_id
     """)
@@ -64,6 +63,8 @@ def read_items():
                 "org_id": org_id,
                 "orgName": row["orgName"],
                 "isCollegeBased": row["isCollegeBased"],
+                "orgDetails": row["orgDetails"],
+                "logoUrl": row["logoUrl"],
                 "events": []
             }
         if row["event_id"]:  # If there is an event associated with this organization
@@ -73,13 +74,46 @@ def read_items():
                 "venue": row["venue"],
                 "month": row["month"],
                 "day": row["day"],
-                "year": row["year"],
-                "startTime": row["startTime"],
-                "endTime": row["endTime"],
-                "notes": row["notes"]
+                "year": row["year"]
             })
 
     return list(orgs.values())
+
+# Get all organizations with no events - For Organizations page
+@app.get("/get_orgs/")
+def get_organizations():
+    """ 
+    Returns all organization details without the events
+    """
+    conn = connect_db()
+    conn.row_factory = sqlite3.Row  # Enable dictionary-like access to rows
+    cursor = conn.cursor()
+
+    try:
+        # Fetch all organizations
+        cursor.execute("""
+            SELECT id AS org_id, orgName, isCollegeBased, orgDetails, logoUrl
+            FROM organizations
+        """)
+        organizations = cursor.fetchall()
+    finally:
+        conn.close()
+
+    # Format the results as a list of dictionaries
+    orgs_list = [
+        {
+            "org_id": row["org_id"],
+            "orgName": row["orgName"],
+            "isCollegeBased": row["isCollegeBased"],
+            "orgDetails": row["orgDetails"],
+            "logoUrl": row["logoUrl"]
+        }
+        for row in organizations
+    ]
+
+    return orgs_list
+
+
 
 # Creating organizations - FOR DOCS ONLY
 @app.post("/create-organization/")
@@ -90,8 +124,8 @@ def create_organization(org_item: OrganizationItem):
     try:
         # Insert organization data into DB table
         cursor.execute(""" 
-                    INSERT INTO organizations (orgName, isCollegeBased) VALUES (?, ?)
-                    """, (org_item.orgName, org_item.isCollegeBased))
+                    INSERT INTO organizations (orgName, isCollegeBased, orgDetails, logoUrl) VALUES (?, ?, ?, ?)
+                    """, (org_item.orgName, org_item.isCollegeBased, org_item.orgDetails, org_item.logoUrl))
         conn.commit()
         
     except sqlite3.Error as e:
@@ -116,18 +150,15 @@ def create_event(event_item: EventItem):
         
         # Insert the event into the events table
         cursor.execute(""" 
-            INSERT INTO events (org_id, eventTitle, venue, month, day, year, startTime, endTime, notes) 
-            VALUES (?,?,?,?,?,?,?,?,?)
+            INSERT INTO events (org_id, eventTitle, venue, month, day, year) 
+            VALUES (?,?,?,?,?,?)
         """, (
-            event_item.org_id, 
+            event_item.org_id,
             event_item.eventTitle, 
             event_item.venue,
             event_item.month,
             event_item.day,
-            event_item.year, 
-            event_item.startTime, 
-            event_item.endTime, 
-            event_item.notes
+            event_item.year
         ))
         conn.commit()
         
@@ -147,7 +178,7 @@ def get_organizations_and_events():
 
     cursor.execute("""
         SELECT o.id AS org_id, o.orgName, o.isCollegeBased, 
-            e.id AS event_id, e.eventTitle, e.venue, e.startTime, e.endTime, e.notes,
+            e.id AS event_id, e.eventTitle, e.venue,
             e.month, e.day, e.year
         FROM organizations o
         LEFT JOIN events e ON o.id = e.org_id
@@ -164,6 +195,8 @@ def get_organizations_and_events():
                 "org_id": org_id,
                 "orgName": row["orgName"],
                 "isCollegeBased": row["isCollegeBased"],
+                "orgDetails": row["orgDetails"],
+                "logoUrl": row["logoUrl"],
                 "events": []
             }
         if row["event_id"]:  
@@ -173,10 +206,7 @@ def get_organizations_and_events():
                 "venue": row["venue"],
                 "month": row["month"],
                 "day": row["day"],
-                "year": row["year"],
-                "startTime": row["startTime"],
-                "endTime": row["endTime"],
-                "notes": row["notes"]
+                "year": row["year"]
             })
 
     return list(orgs.values())
@@ -188,11 +218,12 @@ def get_recent_events():
     cursor = conn.cursor()
 
     try:
-        # Fetch the 6 most recent events with the organization name
+        # Fetch the 6 most recent events globally
         cursor.execute("""
-            SELECT e.id AS event_id, e.eventTitle, e.venue, 
-                e.month, e.day, e.year, e.startTime, e.endTime, e.notes, 
-                o.orgName
+          SELECT e.id AS event_id, e.eventTitle, e.venue, 
+                   e.month, e.day, e.year, 
+                   o.id AS org_id, o.orgName, o.isCollegeBased, 
+                   o.orgDetails, o.logoUrl
             FROM events e
             JOIN organizations o ON e.org_id = o.id
             ORDER BY e.year DESC, e.month DESC, e.day DESC
@@ -211,10 +242,14 @@ def get_recent_events():
             "month": row["month"],
             "day": row["day"],
             "year": row["year"],
-            "startTime": row["startTime"],
-            "endTime": row["endTime"],
-            "notes": row["notes"],
-            "orgName": row["orgName"]
+            "orgName": row["orgName"],
+            "organization": {
+                    "org_id": row["org_id"],
+                    "orgName": row["orgName"],
+                    "isCollegeBased": row["isCollegeBased"],
+                    "orgDetails": row["orgDetails"],
+                    "logoUrl": row["logoUrl"]
+                }
         }
         for row in events
     ]
@@ -241,8 +276,8 @@ def get_event_date(day: int, month: int, year: int):
         # Query to find events on the specific date
         cursor.execute(
             """
-            SELECT e.id AS event_id, e.eventTitle, e.venue, e.notes,
-                   e.startTime, e.endTime, o.id AS org_id, o.orgName, o.isCollegeBased
+            SELECT e.id AS event_id, e.eventTitle, e.venue, 
+            o.id AS org_id, o.orgName, o.isCollegeBased, o.orgDetails, o.logoUrl
             FROM events e
             INNER JOIN organizations o ON e.org_id = o.id
             WHERE e.day = ? AND e.month = ? AND e.year = ?
@@ -256,13 +291,12 @@ def get_event_date(day: int, month: int, year: int):
                 "event_id": row["event_id"],
                 "eventTitle": row["eventTitle"],
                 "venue": row["venue"],
-                "notes": row["notes"],
-                "startTime": row["startTime"],
-                "endTime": row["endTime"],
                 "organization": {
                     "org_id": row["org_id"],
                     "orgName": row["orgName"],
                     "isCollegeBased": row["isCollegeBased"],
+                    "orgDetails": row["orgDetails"],
+                    "logoUrl": row["logoUrl"]
                 },
             }
             for row in results
@@ -296,8 +330,8 @@ def get_future_events(day: int, month: int, year: int):
         # Query to find the next three nearest events after the specified date
         cursor.execute(
             """
-            SELECT e.id AS event_id, e.eventTitle, e.venue, e.notes,
-                   e.startTime, e.endTime, o.id AS org_id, o.orgName, o.isCollegeBased
+            SELECT e.id AS event_id, e.eventTitle, e.venue, o.id AS org_id, 
+            o.orgName, o.isCollegeBased, o.orgDetails, o.logoUrl
             FROM events e
             INNER JOIN organizations o ON e.org_id = o.id
             WHERE (e.year > ?)
@@ -315,13 +349,12 @@ def get_future_events(day: int, month: int, year: int):
                 "event_id": row["event_id"],
                 "eventTitle": row["eventTitle"],
                 "venue": row["venue"],
-                "notes": row["notes"],
-                "startTime": row["startTime"],
-                "endTime": row["endTime"],
                 "organization": {
                     "org_id": row["org_id"],
                     "orgName": row["orgName"],
                     "isCollegeBased": row["isCollegeBased"],
+                    "orgDetails": row["orgDetails"],
+                    "logoUrl": row["logoUrl"]
                 },
             }
             for row in results
