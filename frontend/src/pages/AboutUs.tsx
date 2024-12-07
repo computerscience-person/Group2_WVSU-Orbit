@@ -2,7 +2,12 @@ import About_CoreValues from "../components/about/About_CoreValues.tsx";
 import About_DevsDisplay from "../components/about/About_DevsDisplay.tsx";
 import Nav from "../components/Nav.tsx";
 import Footer from "../components/Footer.tsx";
+
 import sampleImage from "../assets/coreValues/saturn.png";
+import connectionIcon from "../assets/logos/icon _Handshake_.png";
+import inclusivityIcon from "../assets/logos/icon _People Community_.png";
+import empowermentIcon from "../assets/logos/icon _Raised Fist_.png";
+
 import missionImg from "../assets/icons/mision_image.webp";
 import visionImg from "../assets/icons/vision_image.png";
 
@@ -57,19 +62,19 @@ const threeDevs2 = [
 
 const coreValuesComponents = [
   {
-    imageSrc: sampleImage,
+    imageSrc: connectionIcon,
     coreTitle: "CONNECTION",
     coreDesc:
       "Encouraging students to engage and form meaningful relationships within the campus community.",
   },
   {
-    imageSrc: sampleImage,
+    imageSrc: inclusivityIcon,
     coreTitle: "INCLUSIVITY",
     coreDesc:
       "Building a space where diverse ideas, cultures, and voices are respected, embraced, and celebrated.",
   },
   {
-    imageSrc: sampleImage,
+    imageSrc: empowermentIcon,
     coreTitle: "EMPOWERMENT",
     coreDesc:
       "Empowering students to shape their college experience through involvement and leadership.",
@@ -85,13 +90,13 @@ const AboutUs = () => {
 
         <div className="relative left-1/2 -translate-x-1/2 sm:w-[120vw] sm:h-[85vh] md:w-[120vw] md:h-[100vh]  lg:w-[120vw] lg:h-[100vh] bg-[#FF6C1F] rounded-[50%_50%] top-[-50vh] -z-10 mb-[-90vh] "></div>
         <div className="flex justify-center py-20">
-          <h1 className="font-leader text-3xl sm:text-5xl md:text-6xl">
+          <h1 className="font-leader text-3xl sm:text-4xl md:text-6xl">
             ABOUT WVSU ORBIT
           </h1>
         </div>
-        <div className="flex flex-col items-center px-80 pt-48 pb-24">
+        <div className="flex flex-col items-center sm:px-32 md:px-80 lg:px-80 sm:pt-28 md:pt-48 lg:pt-48 md:pb-24 lg:pb-24">
           {/* ABOUT WVSU ORBIT */}
-          <p className="font-content text-base sm:text-lg md:text-xl  text-center">
+          <p className="font-content text-base sm:text-md md:text-xl text-center">
             WVSU Orbit is a centralized platform that enables students at West
             Visayas State University to explore, connect, and engage with campus
             organizations. Whether you're discovering new clubs, attending
@@ -122,7 +127,7 @@ const AboutUs = () => {
               <h1 className="font-leader sm:text-2xl md:text-3xl lg:text-4xl">
                 Mission
               </h1>
-              <p className="font-content text-base sm:text-lg md:text-xl">
+              <p className="font-content text-base sm:text-md md:text-xl lg:text-xl">
                 WVSU Orbit aims to create a centralized platform where students
                 can explore, connect, and engage with student organizations and
                 events. By fostering inclusivity, collaboration, and personal
@@ -130,19 +135,25 @@ const AboutUs = () => {
                 help build a dynamic and thriving campus community
               </p>
             </div>
-            <img src={visionImg} className="max-h-full" />
+            <img
+              src={visionImg}
+              className="sm:max-h-[10rem] md:max-h-full lg:max-h-full"
+            />
           </div>
 
           {/* VISION */}
 
           <div className="h-[35vh] flex flex-row justify-center items-center space-x-[5rem]">
-            <img src={missionImg} className="max-h-full" />
+            <img
+              src={missionImg}
+              className="sm:max-h-[10rem] md:max-h-full lg:max-h-full"
+            />
             {/* VISION DIV TEXT */}
             <div className="w-[65vh] flex flex-col space-y-4 max-h-full justify-center items-center text-center">
               <h1 className="font-leader sm:text-2xl md:text-3xl lg:text-4xl">
                 Vision
               </h1>
-              <p className="font-content text-base sm:text-lg md:text-xl">
+              <p className="font-content text-base sm:text-md md:text-xl lg:text-xl">
                 To be the leading platform at West Visayas State University that
                 fosters a connected, engaged, and empowered student body,
                 creating a dynamic campus community where every student can
@@ -157,7 +168,7 @@ const AboutUs = () => {
         <h1 className="font-leader sm:text-2xl md:text-3xl lg:text-4xl text-center">
           Core Values
         </h1>
-        <div className="py-[5rem] flex flex-row justify-center items-center space-x-[8rem] mt-16">
+        <div className="py-[5rem] flex flex-row justify-center items-center space-x-[8rem] sm:mt-8 md:mt-16 lg:mt-16">
           {coreValuesComponents.map((coreVal) => (
             <About_CoreValues
               coreDesc={coreVal.coreDesc}
@@ -171,13 +182,13 @@ const AboutUs = () => {
       {/* CREATING A PARENT DIV TO ACCOMMODATE THE MULTIPLE LAYERS */}
 
       {/* LAYER 4 */}
-      <div className=" bg-tangerine flex flex-col py-[8vh] px-[5rem]">
-        <h1 className="font-leader sm:text-2xl md:text-3xl lg:text-4xl text-center pb-[2rem]">
+      <div className=" bg-tangerine flex flex-col sm:py-[10vh] md:py-[8vh] lg:py-[8vh] sm:px-[0rem] md:px-[5rem] lg:px-[5rem]">
+        <h1 className="font-leader sm:text-2xl md:text-3xl lg:text-4xl text-center sm:pb-[2rem] md:pb-[2rem] lg:pb-[2rem]">
           Team Behind WVSU Orbit
         </h1>
 
         {/* FIRST THREE */}
-        <div className="flex flex-row justify-center space-x-[5rem]">
+        <div className="flex flex-row justify-center sm:space-x-[3rem] md:space-x-[5rem] lg:space-x-[5rem]">
           {threeDevs1.map((dev) => (
             <About_DevsDisplay
               bgColor={dev.bgColor}
@@ -189,7 +200,7 @@ const AboutUs = () => {
         </div>
 
         {/* SECOND THREE */}
-        <div className="flex flex-row justify-center space-x-[5rem]">
+        <div className="flex flex-row justify-center sm:space-x-[3rem] md:space-x-[5rem] lg:space-x-[5rem]">
           {threeDevs2.map((dev) => (
             <About_DevsDisplay
               bgColor={dev.bgColor}
