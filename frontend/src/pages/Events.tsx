@@ -174,6 +174,7 @@ const Events = () => {
                     eventName={event.eventTitle}
                     eventPlace={event.venue}
                     orgName={event.organization.orgName}
+                    orgLogo={event.organization.logoUrl}
                   />
                 ))
               ) : (
