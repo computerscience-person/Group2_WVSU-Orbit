@@ -83,7 +83,7 @@ const Events_Carousel: React.FC<EventsCarouselProps> = ({ orgId = null }) => {
   }
 
   return (
-    <div className="py-12 px-28 relative">
+    <div className="w-full h-[85vh] flex justify-center py-12 px-28 relative">
       <div>
         <div className="flex space-x-8">
           {visibleCards.map((card, index) => (
