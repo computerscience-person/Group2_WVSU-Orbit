@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Events_EventDetails from "../components/events/Events_EventDetails";
-import Events_Carousel from "../components/events/Events_Carousel"; // Adjust the path if necessary
+import Events_Carousel from "../components/events/Events_Carousel";
 import { fetchEventsByDate, Event } from "../api/api"; // Adjust the import path for the API function
 
 const Events = () => {
