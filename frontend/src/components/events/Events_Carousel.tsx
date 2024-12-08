@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Events_RecapCard from "./Events_RecapCard";
-import { fetchRecentEvents, Event } from "../../api/api";
+import {
+  fetchRecentEvents,
+  fetchSixRecentEventsOrgId,
+  Event,
+} from "../../api/api";
 
 interface Card {
   orgName: string;
@@ -10,7 +14,11 @@ interface Card {
   logoUrl: string;
 }
 
-const Events_Carousel: React.FC = () => {
+interface EventsCarouselProps {
+  orgId?: number | null; // Optional orgId prop
+}
+
+const Events_Carousel: React.FC<EventsCarouselProps> = ({ orgId = null }) => {
   const [events, setEvents] = useState<Event[]>([]);
   const [cards, setCards] = useState<Card[]>([]);
 
@@ -22,11 +30,17 @@ const Events_Carousel: React.FC = () => {
     "bg-pool",
   ];
 
-  // Fetch recent events on component mount
+  // Fetch recent events or org-specific events on component mount or orgId change
   useEffect(() => {
     const loadEvents = async () => {
       try {
-        const data = await fetchRecentEvents();
+        let data;
+        if (orgId) {
+          data = await fetchSixRecentEventsOrgId(orgId);
+        } else {
+          data = await fetchRecentEvents();
+        }
+
         setEvents(data); // Set the events state
 
         // Map events to Card format with random bgColor
@@ -45,7 +59,7 @@ const Events_Carousel: React.FC = () => {
     };
 
     loadEvents();
-  }, []); // Empty dependency array to run only once on mount
+  }, [orgId]); // Run effect on mount or when orgId changes
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const cardsPerView = 3;

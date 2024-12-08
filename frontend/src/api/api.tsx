@@ -29,18 +29,6 @@ export interface Concerns {
   message: string;
 }
 
-export const fetchOrganizationsAndEvents = async (): Promise<
-  Organization[]
-> => {
-  try {
-    const response = await axios.get("http://localhost:8000/get-events");
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching organizations and events:", error);
-    return [];
-  }
-};
-
 export const fetchRecentEvents = async (): Promise<Event[]> => {
   try {
     const response = await axios.get("http://localhost:8000/recent-events/");
@@ -122,5 +110,69 @@ export const fetchOrganizations = async (): Promise<Organization[]> => {
   } catch (error) {
     console.error("Error fetching organizations:", error);
     return [];
+  }
+};
+
+export const fetchOrgById = async (
+  orgId: number
+): Promise<Organization | null> => {
+  try {
+    const response = await axios.get("http://localhost:8000/get-org-by-id/", {
+      params: { org_id: orgId }, // Use orgId here as the variable holding the ID
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching organization by ID: ", error);
+    return null;
+  }
+};
+
+export const fetchSixRecentEventsOrgId = async (
+  orgId: number
+): Promise<Organization | null> => {
+  try {
+    const response = await axios.get(
+      "http://localhost:8000/orgid-recent-events", // Ensure this matches backend route
+      {
+        params: { org_id: orgId }, // Ensure param name matches backend
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    if (error.response) {
+      // Log specific HTTP error details
+      console.error(
+        `Error ${error.response.status}:`,
+        error.response.data.detail || error.response.data
+      );
+    } else {
+      console.error("Network or other error: ", error.message);
+    }
+    return null;
+  }
+};
+
+export const fetchFutureEventsOrgId = async (
+  orgId: number
+): Promise<Organization | null> => {
+  try {
+    const response = await axios.get(
+      "http://localhost:8000/get-future-events-by-id/", // Ensure this matches backend route
+      {
+        params: { org_id: orgId }, // Ensure param name matches backend
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    if (error.response) {
+      // Log specific HTTP error details
+      console.error(
+        `Error ${error.response.status}:`,
+        error.response.data.detail || error.response.data
+      );
+    } else {
+      console.error("Network or other error: ", error.message);
+    }
+    return null;
   }
 };

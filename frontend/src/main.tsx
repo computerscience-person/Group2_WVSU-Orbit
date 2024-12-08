@@ -34,7 +34,7 @@ const router = createBrowserRouter([
     element: <Organizations />,
   },
   {
-    path: "orgpage",
+    path: "orgpage/:org_id", // Dynamic route parameter for organization ID
     element: <OrgPage />,
   },
 ]);
