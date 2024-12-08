@@ -113,6 +113,203 @@ def get_organizations():
 
     return orgs_list
 
+from fastapi import HTTPException
+
+@app.get("/get-org-by-id/")
+def get_org_by_id(org_id: int):
+    """ Returns an org and its entire details based on ID """
+    conn = connect_db()
+    conn.row_factory = sqlite3.Row  # Enable dictionary-like access to rows
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("""
+            SELECT id AS org_id, orgName, isCollegeBased, orgDetails, logoUrl
+            FROM organizations
+            WHERE id = ?
+        """, (org_id,))
+        org = cursor.fetchone()
+
+        if not org:
+            raise HTTPException(status_code=404, detail="Organization not found.")
+
+        cursor.execute("""
+            SELECT id AS event_id, eventTitle, venue, month, day, year
+            FROM events
+            WHERE org_id = ?
+        """, (org_id,))
+        events = cursor.fetchall()
+
+    except sqlite3.Error as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+    finally:
+        conn.close()
+
+    org_details = {
+        "org_id": org["org_id"],
+        "orgName": org["orgName"],
+        "isCollegeBased": org["isCollegeBased"],
+        "orgDetails": org["orgDetails"],
+        "logoUrl": org["logoUrl"],
+        "events": [
+            {
+                "event_id": event["event_id"],
+                "eventTitle": event["eventTitle"],
+                "venue": event["venue"],
+                "month": event["month"],
+                "day": event["day"],
+                "year": event["year"]
+            }
+            for event in events
+        ]
+    }
+
+    return org_details
+
+
+@app.get("/orgid-recent-events")
+def get_orgid_recent_events(org_id: int):
+    """ 
+    Get an organization's details and its 6 most recent events by org_id.
+
+    Args:
+        org_id (int): The ID of the organization whose details and recent events are being retrieved.
+
+    Returns:
+        list: A list of dictionaries, each containing event details along with the organization's details.
+    """
+    conn = connect_db()
+    conn.row_factory = sqlite3.Row  # Enable dictionary-like access to rows
+    cursor = conn.cursor()
+
+    try:
+        # Query to fetch the organization's details
+        cursor.execute(
+            """
+            SELECT id AS org_id, orgName, isCollegeBased, orgDetails, logoUrl
+            FROM organizations
+            WHERE id = ?
+            """,
+            (org_id,)
+        )
+        org_details = cursor.fetchone()
+
+        if not org_details:
+            raise HTTPException(status_code=404, detail="Organization not found.")
+
+        # Query to fetch the 6 most recent events for the given org_id
+        cursor.execute(
+            """
+            SELECT id AS event_id, eventTitle, venue, month, day, year
+            FROM events
+            WHERE org_id = ?
+            ORDER BY year DESC, month DESC, day DESC
+            LIMIT 6
+            """,
+            (org_id,)
+        )
+        recent_events = cursor.fetchall()
+
+    except sqlite3.Error as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+    finally:
+        conn.close()
+
+    # Format the response to include event details along with the organization details in each event
+    formatted_response = [
+        {
+            "event_id": event["event_id"],
+            "eventTitle": event["eventTitle"],
+            "venue": event["venue"],
+            "month": event["month"],
+            "day": event["day"],
+            "year": event["year"],
+            "orgName": org_details["orgName"],
+            "organization": {
+                "org_id": org_details["org_id"],
+                "orgName": org_details["orgName"],
+                "isCollegeBased": org_details["isCollegeBased"],
+                "orgDetails": org_details["orgDetails"],
+                "logoUrl": org_details["logoUrl"],
+            },
+        }
+        for event in recent_events
+    ]
+
+    return formatted_response
+
+
+@app.get("/get-future-events-by-id/")
+def get_orgid_future_events(org_id: int):
+    """
+    Get an organization's details and its future events by org_id.
+
+    Args:
+        org_id (int): The ID of the organization whose details and future events are being retrieved.
+
+    Returns:
+        dict: A dictionary containing the organization's details and a list of its future events.
+    """
+    conn = connect_db()
+    conn.row_factory = sqlite3.Row  # Enable dictionary-like access to rows
+    cursor = conn.cursor()
+
+    try:
+        # Query to fetch the organization's details
+        cursor.execute(
+            """
+            SELECT id AS org_id, orgName, isCollegeBased, orgDetails, logoUrl
+            FROM organizations
+            WHERE id = ?
+            """,
+            (org_id,)
+        )
+        org_details = cursor.fetchone()
+
+        if not org_details:
+            raise HTTPException(status_code=404, detail="Organization not found.")
+
+        # Get the current date
+        today = datetime.today()
+
+        # Query to fetch the organization's future events
+        cursor.execute(
+            """
+            SELECT id AS event_id, eventTitle, venue, month, day, year
+            FROM events
+            WHERE org_id = ? AND (year > ? OR (year = ? AND (month > ? OR (month = ? AND day >= ?))))
+            ORDER BY year, month, day
+            """,
+            (org_id, today.year, today.year, today.month, today.month, today.day)
+        )
+        future_events = cursor.fetchall()
+
+    except sqlite3.Error as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+    finally:
+        conn.close()
+
+    # Format the organization's details with its future events
+    org_with_future_events = {
+        "org_id": org_details["org_id"],
+        "orgName": org_details["orgName"],
+        "isCollegeBased": org_details["isCollegeBased"],
+        "orgDetails": org_details["orgDetails"],
+        "logoUrl": org_details["logoUrl"],
+        "future_events": [
+            {
+                "event_id": event["event_id"],
+                "eventTitle": event["eventTitle"],
+                "venue": event["venue"],
+                "month": event["month"],
+                "day": event["day"],
+                "year": event["year"]
+            }
+            for event in future_events
+        ]
+    }
+
+    return org_with_future_events
 
 
 # Creating organizations - FOR DOCS ONLY
@@ -169,47 +366,6 @@ def create_event(event_item: EventItem):
         conn.close()
     
     return {"message": "Event added successfully"}
-
-# Get the event and print out in `api.tsx` code
-@app.get("/get-events")
-def get_organizations_and_events():
-    conn = connect_db()
-    cursor = conn.cursor()
-
-    cursor.execute("""
-        SELECT o.id AS org_id, o.orgName, o.isCollegeBased, 
-            e.id AS event_id, e.eventTitle, e.venue,
-            e.month, e.day, e.year
-        FROM organizations o
-        LEFT JOIN events e ON o.id = e.org_id
-    """)
-
-    events = cursor.fetchall()
-    conn.close()
-
-    orgs = {}
-    for row in events:
-        org_id = row["org_id"]
-        if org_id not in orgs:
-            orgs[org_id] = {
-                "org_id": org_id,
-                "orgName": row["orgName"],
-                "isCollegeBased": row["isCollegeBased"],
-                "orgDetails": row["orgDetails"],
-                "logoUrl": row["logoUrl"],
-                "events": []
-            }
-        if row["event_id"]:  
-            orgs[org_id]["events"].append({
-                "event_id": row["event_id"],
-                "eventTitle": row["eventTitle"],
-                "venue": row["venue"],
-                "month": row["month"],
-                "day": row["day"],
-                "year": row["year"]
-            })
-
-    return list(orgs.values())
 
 
 @app.get("/recent-events/")

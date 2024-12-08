@@ -3,6 +3,8 @@ import Organizations_LogoPlaceholder from "../components/organizations/Organizat
 import Footer from "../components/Footer";
 import { fetchOrganizations, Organization } from "../api/api";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // Corrected import of Link
+import OrgPage from "./pages/OrgPage.tsx";
 
 const Organizations = () => {
   const [collegeOrgs, setCollegeOrgs] = useState<Organization[]>([]);
@@ -51,12 +53,15 @@ const Organizations = () => {
         </h1>
         <div className="flex flex-wrap justify-center gap-y-6 py-10 px-16">
           {universityOrgs.map((org, index) => (
-            <button key={index}>
+            <Link
+              to={`/orgpage/${org.org_id}`} // Pass org_id as part of the route
+              key={index}
+            >
               <Organizations_LogoPlaceholder
                 orgName={org.orgName}
                 logoImg={org.logoUrl}
               />
-            </button>
+            </Link>
           ))}
         </div>
       </div>
@@ -68,12 +73,21 @@ const Organizations = () => {
         </h1>
         <div className="flex flex-wrap justify-center gap-y-6 py-10 px-16">
           {collegeOrgs.map((org, index) => (
-            <button key={index}>
+            <Link
+              to={{
+                pathname: "/orgpage",
+                state: { org_id: org.org_id }, // Ensure this is correct
+              }}
+              key={index}
+              onClick={() =>
+                console.log(`Navigating with org_id: ${org.org_id}`)
+              } // Debug log
+            >
               <Organizations_LogoPlaceholder
                 orgName={org.orgName}
                 logoImg={org.logoUrl}
               />
-            </button>
+            </Link>
           ))}
         </div>
         <p className="font-content italic text-base sm:text-lg md:text-xl py-[1.5rem]">
