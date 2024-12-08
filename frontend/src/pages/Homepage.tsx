@@ -155,6 +155,8 @@ const Homepage = () => {
                 eventPlace={event.venue}
                 orgName={event.organization.orgName}
                 orgLogo={event.organization.logoUrl}
+                day={event.day}
+                month={event.month}
               />
             ))
           )}
