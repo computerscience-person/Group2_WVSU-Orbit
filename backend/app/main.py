@@ -486,7 +486,7 @@ def get_future_events(day: int, month: int, year: int):
         # Query to find the next three nearest events after the specified date
         cursor.execute(
             """
-            SELECT e.id AS event_id, e.eventTitle, e.venue, o.id AS org_id, 
+            SELECT e.id AS event_id, e.eventTitle, e.venue, e.month, e.day, e.year, o.id AS org_id, 
             o.orgName, o.isCollegeBased, o.orgDetails, o.logoUrl
             FROM events e
             INNER JOIN organizations o ON e.org_id = o.id
@@ -505,6 +505,9 @@ def get_future_events(day: int, month: int, year: int):
                 "event_id": row["event_id"],
                 "eventTitle": row["eventTitle"],
                 "venue": row["venue"],
+                "month": row["month"],
+                "day": row["day"],
+                "year": row["year"],
                 "organization": {
                     "org_id": row["org_id"],
                     "orgName": row["orgName"],
