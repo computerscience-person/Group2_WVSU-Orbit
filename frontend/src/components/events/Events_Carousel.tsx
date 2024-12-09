@@ -5,6 +5,7 @@ import {
   fetchSixRecentEventsOrgId,
   Event,
 } from "../../api/api";
+import eventimg from "../../assets/photos/cyb_pastevent_2.jpg"
 
 interface Card {
   orgName: string;
@@ -49,7 +50,8 @@ const Events_Carousel: React.FC<EventsCarouselProps> = ({ orgId = null }) => {
           eventName: event.eventTitle,
           logoUrl: event.organization.logoUrl,
           url: "facebook.com",
-          bgColor: colors[Math.floor(Math.random() * colors.length)], // Randomly assign a color
+          bgColor: colors[Math.floor(Math.random() * colors.length)],
+          backgroundImage: eventimg // Randomly assign a color
         }));
 
         setCards(mappedCards); // Set the cards state
