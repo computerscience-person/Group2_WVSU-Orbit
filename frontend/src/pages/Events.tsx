@@ -170,9 +170,8 @@ const Events = () => {
             <div>
               {events.length > 0 ? (
                 events.map((event, index) => (
-                  <Link 
+                  <Link
                     to={`/orgpage/${event.organization.org_id}`} // Pass org_id as part of the route
-                    key={index}
                   >
                     <Events_EventDetails
                       eventName={event.eventTitle}
@@ -187,7 +186,6 @@ const Events = () => {
                   No events for this date.
                 </p>
               )}
-
             </div>
           </div>
         </div>
