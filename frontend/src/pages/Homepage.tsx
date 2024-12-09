@@ -148,15 +148,20 @@ const Homepage = () => {
             </p>
           ) : (
             events.map((event, idx) => (
-              <Events_EventDetails
+              <Link
+                to={`/orgpage/${event.organization.org_id}`} // Pass org_id as part of the route
                 key={idx}
-                eventName={event.eventTitle}
-                eventPlace={event.venue}
-                orgName={event.organization.orgName}
-                orgLogo={event.organization.logoUrl}
-                day={event.day}
-                month={event.month}
-              />
+              >
+                <Events_EventDetails
+                  key={idx}
+                  eventName={event.eventTitle}
+                  eventPlace={event.venue}
+                  orgName={event.organization.orgName}
+                  orgLogo={event.organization.logoUrl}
+                  day={event.day}
+                  month={event.month}
+                />
+              </Link>
             ))
           )}
         </div>
