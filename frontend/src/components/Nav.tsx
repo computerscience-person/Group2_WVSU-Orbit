@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import blackLogo from "../assets/logos/wvsu_orbit2.png";
+import "../styles.css";
 
 const Nav = () => {
   const location = useLocation();
-  // Define an array of paths to check against
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Trigger the animation
+  useEffect(() => {
+    setIsVisible(true);
+    return () => setIsVisible(false);
+  }, [location]);
+
   const navPages = [
     { name: "Home", path: "/" },
     { name: "About Us", path: "/about" },
@@ -13,12 +21,11 @@ const Nav = () => {
     { name: "Contact Us", path: "/contact" },
   ];
 
-  // Helper function to check if current path matches
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <div>
-      <nav className="w-full h-12 px-12">
+    <div className={`nav-wrapper ${isVisible ? "enter" : "exit"}`}>
+      <nav className="w-full h-32 px-12 pb-16">
         <div className="h-full w-full flex justify-between items-center">
           <Link to="/">
             <img src={blackLogo} className="sm:h-6 md:h-8 lg:h-10" />

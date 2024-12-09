@@ -6,6 +6,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; // Corrected import of Link
 import OrgPage from "./pages/OrgPage.tsx";
 
+
+import { useLocation } from "react-router-dom";
+import "../styles.css";
+
 const Organizations = () => {
   const [collegeOrgs, setCollegeOrgs] = useState<Organization[]>([]);
   const [universityOrgs, setUniversityOrgs] = useState<Organization[]>([]);
@@ -29,7 +33,16 @@ const Organizations = () => {
     fetchAndSortOrganizations();
   }, []);
 
+  const location = useLocation();
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true); // Add the `enter` animation
+    return () => setIsVisible(false); // Clean up for `exit` animation
+  }, [location]);
+
   return (
+    <div className={`page-wrapper ${isVisible ? "enter" : "exit"}`}>
     <div className="flex flex-col w-full">
       <div className="text-center min-h-full bg-palmleaf">
         <Nav />
@@ -90,6 +103,7 @@ const Organizations = () => {
       </div>
 
       <Footer />
+    </div>
     </div>
   );
 };

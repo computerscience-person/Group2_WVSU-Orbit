@@ -6,6 +6,8 @@ import Events_EventDetails from "../components/events/Events_EventDetails.tsx";
 import wvsuLogo from "../assets/logos/wvsu_logo.png";
 import cictLogo from "../assets/logos/wvsu_cict.png";
 import { fetchFutureEvents, Event } from "../api/api";
+import { useLocation } from "react-router-dom";
+import "../styles.css";
 
 const Homepage = () => {
   const [width, setWidth] = useState(globalThis.innerWidth);
@@ -31,8 +33,17 @@ const Homepage = () => {
     fetchFutureEventsDetails();
   }, []);
 
+  const location = useLocation();
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true); // Add the `enter` animation
+    return () => setIsVisible(false); // Clean up for `exit` animation
+  }, [location]);
+
   return (
     <>
+    <div className={`page-wrapper ${isVisible ? "enter" : "exit"}`}>
       {/* greeter screen */}
       <div className="h-[150vh] bg-sorbet bg-[url(/src/assets/students-jumping-college.jpg)] bg-blend-soft-light bg-cover bg-no-repeat flex flex-wrap flex-col justify-center items-center">
         <div className="w-full bg-transparent">
@@ -173,6 +184,7 @@ const Homepage = () => {
       </div>
       <div className="bg-sorbet">
         <Footer />
+      </div>
       </div>
     </>
   );

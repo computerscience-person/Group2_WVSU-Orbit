@@ -18,6 +18,10 @@ import Reycel_aboutPic from "../assets/photos/about_reycel.png";
 import Els_aboutPic from "../assets/photos/about_els.png";
 import Cristopher_aboutPic from "../assets/photos/about_cris.png";
 
+import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import "../styles.css";
+
 const threeDevs1 = [
   {
     imageSrc: Manuel_aboutPic,
@@ -81,9 +85,18 @@ const coreValuesComponents = [
   },
 ];
 
+// const location = useLocation();
+// const [isVisible, setIsVisible] = useState(false);
+
+// useEffect(() => {
+//   setIsVisible(true); // Add the `enter` animation
+//   return () => setIsVisible(false); // Clean up for `exit` animation
+// }, [location]);
+
 const AboutUs = () => {
   return (
     <>
+    {/* <div className={`page-wrapper ${isVisible ? "enter" : "exit"}`}> */}
       {/* LAYER 1 */}
       <div className="flex flex-col min-h-screen overflow-hidden">
         <Nav />
@@ -211,8 +224,8 @@ const AboutUs = () => {
           ))}
         </div>
       </div>
-
       <Footer />
+      {/* </div> */}
     </>
   );
 };
