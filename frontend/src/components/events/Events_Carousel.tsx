@@ -5,6 +5,21 @@ import {
   fetchSixRecentEventsOrgId,
   Event,
 } from "../../api/api";
+import img1 from "../../assets/photos/cyb_pastevent_1.jpg";
+import img2 from "../../assets/photos/cyb_pastevent_2.jpg";
+import img3 from "../../assets/photos/cyb_pastevent_3.jpg";
+import img4 from "../../assets/photos/cyb1.jpg";
+import img5 from "../../assets/photos/cyb2.jpg";
+import img6 from "../../assets/photos/cyb3.jpg";
+import img7 from "../../assets/photos/cyb4.jpg";
+import img8 from "../../assets/photos/cyb5.jpg";
+import img9 from "../../assets/photos/cyb6.jpg";
+import img10 from "../../assets/photos/cyb7.jpg";
+import img11 from "../../assets/photos/cyb8.jpg";
+import img12 from "../../assets/photos/cyb9.jpg";
+import img13 from "../../assets/photos/cyb10.jpg";
+import img14 from "../../assets/photos/cyb11.jpg";
+import img15 from "../../assets/photos/cyb12.jpg";
 
 interface Card {
   orgName: string;
@@ -30,6 +45,9 @@ const Events_Carousel: React.FC<EventsCarouselProps> = ({ orgId = null }) => {
     "bg-pool",
   ];
 
+  const eventImages = [img1, img2, img3, img4, img5, img6, img7, img8,
+    img9, img10, img11, img12, img13, img14, img15];
+ 
   // Fetch recent events or org-specific events on component mount or orgId change
   useEffect(() => {
     const loadEvents = async () => {
@@ -49,8 +67,8 @@ const Events_Carousel: React.FC<EventsCarouselProps> = ({ orgId = null }) => {
           eventName: event.eventTitle,
           logoUrl: event.organization.logoUrl,
           url: "facebook.com",
-          bgColor: colors[Math.floor(Math.random() * colors.length)], // Randomly assign a color
-        }));
+          bgColor: colors[Math.floor(Math.random() * colors.length)],
+          backgroundImage: eventImages[Math.floor(Math.random() * eventImages.length)]}));
 
         setCards(mappedCards); // Set the cards state
       } catch (error) {

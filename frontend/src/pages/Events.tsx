@@ -6,6 +6,9 @@ import Events_Carousel from "../components/events/Events_Carousel";
 import { fetchEventsByDate, Event } from "../api/api"; // Adjust the import path for the API function
 import { Link } from "react-router-dom";
 
+import { useLocation } from "react-router-dom";
+import "../styles.css";
+
 const Events = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
@@ -109,7 +112,17 @@ const Events = () => {
   const dayOfWeek = selectedDate.toLocaleString("en-US", { weekday: "long" });
   const dayNumber = selectedDate.getDate();
 
+  const location = useLocation();
+  const [isVisible, setIsVisible] = useState(false);
+  
+  useEffect(() => {
+    setIsVisible(true); // Add the `enter` animation
+    return () => setIsVisible(false); // Clean up for `exit` animation
+  }, [location]);
+
+
   return (
+    <div className={`page-wrapper ${isVisible ? "enter" : "exit"}`}>
     <div className="bg-pool flex flex-col min-h-screen">
       <Nav />
       <div className="flex flex-col justify-center items-center space-y-4 my-8 sm:my-16 mx-4 sm:mx-8">
@@ -207,6 +220,7 @@ const Events = () => {
       </div>
 
       <Footer />
+    </div>
     </div>
   );
 };

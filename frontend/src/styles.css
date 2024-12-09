@@ -1,0 +1,53 @@
+/* Wrapper Animation */
+.nav-wrapper {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: transform .5s ease 0.5s;
+  transform: translate3d(0, 100%, 0);
+}
+
+.nav-wrapper.enter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-wrapper.exit {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+/* Page Wrapper Animation */
+.page-wrapper {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: transform .5s ease 0.5s;
+  transform: translate3d(0, 100%, 0);
+}
+
+.page-wrapper.enter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-wrapper.exit {
+  opacity: 0;
+  transform: translateY(-2%);
+}
+
+/* About Page Wrapper Animation */
+.abtpage-wrapper {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: transform .5s ease 0.5s;
+  transform: translate3d(0, 100%, 0);
+}
+
+.abtpage-wrapper.enter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.abtpage-wrapper.exit {
+  opacity: 0;
+  transform: translateY(-100%);
+}
