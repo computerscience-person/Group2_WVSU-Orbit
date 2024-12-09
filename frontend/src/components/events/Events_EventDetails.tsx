@@ -37,9 +37,9 @@ const Events_EventDetails: React.FC<EventDetailsProps> = ({
   year,
 }) => {
   return (
-    <div className="w-[40rem] h-[7rem] flex flex-row mb-5 items-center">
-      <div className="flex flex-row gap-x-[1.5rem] justify-center items-center">
-        <div className="font-leader flex flex-col items-center justify-center">
+    <div className=" w-[40rem] h-[7rem] flex flex-row mb-5 items-center">
+      <div className=" flex flex-row gap-x-[1.5rem] justify-center items-center">
+        <div className=" font-leader flex flex-col items-center justify-center">
           {/* Check if day, month exist before rendering */}
           {month && (
             <p className="text-xs sm:text-sm md:text-base">
