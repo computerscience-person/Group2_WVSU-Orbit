@@ -80,14 +80,11 @@ const Homepage = () => {
         <div className="w-[70vw] flex flex-col justify-center text-center pb-10">
           <h2 className="text-6xl font-leader pb-12">Explore the Orbit.</h2>
           <p className="text-lg font-content">
-            WVSU-Orbit is a Lorem ipsum dolor sit amet, consectetur adipiscing
-            elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu
-            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-            proident, sunt in culpa qui officia deserunt mollit anim id est
-            laborum.
+            WVSU Orbit is your ultimate platform to discover, connect, and
+            engage with student organizations and events at West Visayas State
+            University, providing a user-friendly directory and up-to-date
+            calendar to help you find your community, stay involved, and make
+            the most of your college experience.
           </p>
           <p className="text-lg font-content">
             <strong>See types of organizations below.</strong>
@@ -103,8 +100,9 @@ const Homepage = () => {
               University-Based
             </h3>
             <p className="font-content text-lg">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Explore a variety of university-wide organizations that offer
+              exciting events, leadership opportunities, and ways to make a
+              difference at WVSU
             </p>
             <Link to="/orgs" className="font-content text-lg py-2">
               <strong>
@@ -120,8 +118,9 @@ const Homepage = () => {
               College-Based
             </h3>
             <p className="text-right font-content text-lg">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Discover college-based organizations that provide a supportive
+              space for professional growth, academic collaboration, and
+              personal development.
             </p>
             <Link to="/orgs" className="w-full text-right font-content py-2">
               <strong>
@@ -155,6 +154,8 @@ const Homepage = () => {
                 eventPlace={event.venue}
                 orgName={event.organization.orgName}
                 orgLogo={event.organization.logoUrl}
+                day={event.day}
+                month={event.month}
               />
             ))
           )}

@@ -74,14 +74,8 @@ const Organizations = () => {
         <div className="flex flex-wrap justify-center gap-y-6 py-10 px-16">
           {collegeOrgs.map((org, index) => (
             <Link
-              to={{
-                pathname: "/orgpage",
-                state: { org_id: org.org_id }, // Ensure this is correct
-              }}
+              to={`/orgpage/${org.org_id}`} // Pass org_id as part of the route
               key={index}
-              onClick={() =>
-                console.log(`Navigating with org_id: ${org.org_id}`)
-              } // Debug log
             >
               <Organizations_LogoPlaceholder
                 orgName={org.orgName}

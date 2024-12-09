@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import Events_EventDetails from "../components/events/Events_EventDetails";
 import Events_Carousel from "../components/events/Events_Carousel";
 import { fetchEventsByDate, Event } from "../api/api"; // Adjust the import path for the API function
+import { Link } from "react-router-dom";
 
 const Events = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
@@ -169,19 +170,24 @@ const Events = () => {
             <div>
               {events.length > 0 ? (
                 events.map((event, index) => (
-                  <Events_EventDetails
+                  <Link 
+                    to={`/orgpage/${event.organization.org_id}`} // Pass org_id as part of the route
                     key={index}
-                    eventName={event.eventTitle}
-                    eventPlace={event.venue}
-                    orgName={event.organization.orgName}
-                    orgLogo={event.organization.logoUrl}
-                  />
+                  >
+                    <Events_EventDetails
+                      eventName={event.eventTitle}
+                      eventPlace={event.venue}
+                      orgName={event.organization.orgName}
+                      orgLogo={event.organization.logoUrl}
+                    />
+                  </Link>
                 ))
               ) : (
                 <p className="font-content text-base sm:text-lg md:text-xl">
                   No events for this date.
                 </p>
               )}
+
             </div>
           </div>
         </div>
