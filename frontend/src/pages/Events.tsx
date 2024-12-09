@@ -123,7 +123,7 @@ const Events = () => {
           </p>
         </div>
 
-        <div className="w-full flex flex-row justify-center space-x-28 py-10">
+        <div className="w-full flex flex-row justify-center gap-x-[5rem] py-10">
           {/* CALENDAR COMPONENT */}
           <div className="font-leader flex-none w-[400px]">
             {/* Previous - Current Month - Next */}
@@ -170,9 +170,8 @@ const Events = () => {
             <div>
               {events.length > 0 ? (
                 events.map((event, index) => (
-                  <Link 
+                  <Link
                     to={`/orgpage/${event.organization.org_id}`} // Pass org_id as part of the route
-                    key={index}
                   >
                     <Events_EventDetails
                       eventName={event.eventTitle}
@@ -187,7 +186,6 @@ const Events = () => {
                   No events for this date.
                 </p>
               )}
-
             </div>
           </div>
         </div>
